@@ -26,7 +26,7 @@ namespace Indictus\Exception\ErHandlers;
 
 use Indictus\Config\AutoConfigure as AC;
 
-include_once(__DIR__ . "/../../indictus.config/AutoLoader/AutoLoader.php");
+include_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 class LogErrorHandler{
 

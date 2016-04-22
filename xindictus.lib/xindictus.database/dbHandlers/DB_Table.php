@@ -28,7 +28,7 @@ use Indictus\Model as dbModel;
 use Indictus\Database\dbHandlers as dbHandlers;
 use Indictus\Exception\ErHandlers as Errno;
 
-require_once(__DIR__ . "/../../indictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 /**
  * Class DB_Table

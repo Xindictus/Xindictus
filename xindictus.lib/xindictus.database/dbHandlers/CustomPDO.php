@@ -27,7 +27,7 @@ namespace Indictus\Database\dbHandlers;
 use Indictus\Config\AutoConfigure as AC;
 use Indictus\Exception\ErHandlers as Errno;
 
-include_once(__DIR__ . "/../../indictus.config/AutoLoader/AutoLoader.php");
+include_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 /**
  * Class CustomPDO

@@ -11,7 +11,7 @@ use Indictus\Database\CRUD as crud;
 use Indictus\Database\dbHandlers as dbH;
 use Indictus\Filtering\Validation as val;
 
-require_once(__DIR__."/../indictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 
 abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Validator
 {

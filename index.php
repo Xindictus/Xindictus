@@ -25,7 +25,7 @@
 
 use Indictus\Config\AutoConfigure as AC;
 
-include_once(__DIR__ . "/indictus.lib/indictus.config/AutoLoader/AutoLoader.php");
+include_once(__DIR__ . "/xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
 
 $appConf = new AC\AppConfigure;
 

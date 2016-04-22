@@ -6,8 +6,8 @@
  * Time: 07:22
  */
 
-include_once(__DIR__."/../../indictus.general/KeyCreator.php");
-include_once(__DIR__."/../../indictus.general/Cryptor.php");
+include_once(__DIR__ . "/../../xindictus.general/KeyCreator.php");
+include_once(__DIR__ . "/../../xindictus.general/Cryptor.php");
 
 abstract class SessionKeyCreator extends Cryptor implements KeyCreator{
 

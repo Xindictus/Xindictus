@@ -15,7 +15,7 @@ include_once(__DIR__ . "/CombinedArray.php");
 /**
  * Include the error handler class.
  */
-include_once(__DIR__ . "/../../indictus.exception/error_handlers/LogErrorHandler.php");
+include_once(__DIR__ . "/../../xindictus.exception/error_handlers/LogErrorHandler.php");
 
 class SimpleCRUD extends CombinedArray{
 

@@ -7,7 +7,7 @@
  */
 namespace Indictus\Model;
 
-require_once(__DIR__."/../indictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 
 class Test2 extends Entity{
 

@@ -9,9 +9,9 @@
 /**
  *  Extend Panorama_User with CRUD class.
  */
-include_once(__DIR__ . "/../../indictus.lib/indictus.database/crudHandlers/lulz.php");
-include_once(__DIR__ . "/../../indictus.lib/indictus.filtering/validationHandlers/Validator.php");
-include_once(__DIR__ . "/../../indictus.lib/indictus.filtering/sanitization_handlers/Sanitizer.php");
+include_once(__DIR__ . "/../../xindictus.lib/xindictus.database/crudHandlers/lulz.php");
+include_once(__DIR__ . "/../../xindictus.lib/xindictus.filtering/validationHandlers/Validator.php");
+include_once(__DIR__ . "/../../xindictus.lib/xindictus.filtering/sanitization_handlers/Sanitizer.php");
 
 class Panorama_User extends SimpleCRUD implements Validator, Sanitizer{
 

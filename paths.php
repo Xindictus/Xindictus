@@ -33,32 +33,32 @@ if (!defined('ROOT')) {
 }
 
 if (!defined('Indictus')) {
-    define('Indictus', ROOT . DS . "indictus.lib");
+    define('Indictus', ROOT . DS . "xindictus.lib");
 }
 
 return [
     'Indictus' => Indictus,
 
-    'Config' => 'indictus.config',
+    'Config' => 'xindictus.config',
     'AutoConfigure' => 'AutoConfigure',
 
-    'Database' => 'indictus.database',
+    'Database' => 'xindictus.database',
     'CRUD' => 'crudHandlers',
     'dbHandlers' => 'dbHandlers',
 
-    'Exception' => 'indictus.exception',
+    'Exception' => 'xindictus.exception',
     'ErHandlers' => 'error_handlers',
 
-    'Filtering' => 'indictus.filtering',
+    'Filtering' => 'xindictus.filtering',
 
     'Validation' => 'validationHandlers',
 
-    'General' => 'indictus.general',
+    'General' => 'xindictus.general',
 
-    'Model' => 'indictus.model',
+    'Model' => 'xindictus.model',
 
-    'Session' => 'indictus.session_management',
+    'Session' => 'xindictus.session_management',
 
-    'Privilege' => 'indictus.privilege_handlers',
+    'Privilege' => 'xindictus.privilege_handlers',
 
 ];

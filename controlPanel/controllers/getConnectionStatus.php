@@ -26,7 +26,7 @@
 use Indictus\Database\dbHandlers as dbHandlers;
 use Indictus\Config\AutoConfigure as AC;
 
-require_once(__DIR__ . "/../../indictus.lib/indictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
 
 if ($_SERVER['REQUEST_METHOD']=='GET') {
 
