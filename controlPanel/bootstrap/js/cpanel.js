@@ -53,7 +53,7 @@ function compare(a, b) {
 function fillTable(table, fileName, prefix, info) {
     $.ajax({
         type: 'GET',
-        url: fileName+'.php',
+        url: 'controllers/'+fileName+'.php',
         dataType: 'json'
     }).done( function( data ) {
         info = data;
@@ -136,7 +136,7 @@ function loadInfo() {
 
     $.ajax({
         type: 'GET',
-        url: 'libVersion.php',
+        url: 'controllers/libVersion.php',
         dataType: 'json'
     }).done( function( version ) {
         $('#libVersion').html(version);
@@ -146,7 +146,7 @@ function loadInfo() {
         var span = '<a href="phpINFO.php"><span class="glyphicon glyphicon-share-alt" title="PHP Info"></span></a>';
         $.ajax({
             type: 'GET',
-            url: 'getVersion.php',
+            url: 'controllers/getVersion.php',
             dataType: 'json'
         }).done( function( data ) {
             $("#versionLoader").remove();
@@ -184,7 +184,7 @@ function loadInfo() {
     connectionT = setTimeout(function() {
         $.ajax({
             type: 'GET',
-            url: 'getConnectionStatus.php',
+            url: 'controllers/getConnectionStatus.php',
             dataType: 'json'
         }).done( function( status ) {
             $.each(status, function (key, value) {

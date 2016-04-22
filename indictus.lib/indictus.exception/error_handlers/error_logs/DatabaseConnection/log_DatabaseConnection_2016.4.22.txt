@@ -322,3 +322,7 @@ User: ::1 - April 22, 2016, 6:48 am
 UNABLE TO CONNECT TO DATABASE
 SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
 ------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 7:47 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------

@@ -19,18 +19,18 @@
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
  * Date: 20/4/2016
- * Time: 08:47
+ * Time: 04:30
  *
  ******************************************************************************/
 
 use Indictus\Config\AutoConfigure;
 
-require_once(__DIR__ . "/../indictus.lib/indictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../../indictus.lib/indictus.config/AutoLoader/AutoLoader.php");
 
 if ($_SERVER['REQUEST_METHOD']=='GET') {
 
-    $version = new AutoConfigure\AppConfigure;
-    $version = $version->getPhpVer();
+    $db = new AutoConfigure\DBConfigure;
+    $db = $db->getParam();
 
-    echo json_encode($version);
+    echo json_encode($db);
 }

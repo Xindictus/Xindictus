@@ -15,22 +15,22 @@
  * limitations under the License.
  *
  *
- * File: getConnectionStatus.php
+ * File: libVersion.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 20/4/2016
- * Time: 04:30
+ * Date: 21/4/2016
+ * Time: 23:51
  *
  ******************************************************************************/
 
-use Indictus\Config\AutoConfigure;
-
-require_once(__DIR__ . "/../indictus.lib/indictus.config/AutoLoader/AutoLoader.php");
-
 if ($_SERVER['REQUEST_METHOD']=='GET') {
 
-    $db = new AutoConfigure\DBConfigure;
-    $db = $db->getParam();
+    $VFile = __DIR__ . '/../../VERSION';
 
-    echo json_encode($db);
+    $fileHandler = fopen($VFile, 'r');
+    $data = fread($fileHandler,filesize($VFile));
+
+    fclose($fileHandler);
+
+    echo json_encode($data);
 }
