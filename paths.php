@@ -36,6 +36,7 @@ if (!defined('Indictus')) {
     define('Indictus', ROOT . DS . "xindictus.lib");
 }
 
+
 return [
     'Indictus' => Indictus,
 
