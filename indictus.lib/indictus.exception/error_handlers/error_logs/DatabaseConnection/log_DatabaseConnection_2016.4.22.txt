@@ -1,0 +1,324 @@
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:04 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:04 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:05 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:12 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:12 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:13 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1045] Access denied for user 'roota'@'localhost' (using password: YES)
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:19 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:20 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:21 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:21 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:22 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:23 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:25 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:26 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:27 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:27 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:31 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:31 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:31 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:32 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:33 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:33 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:34 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:34 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:34 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:35 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:41 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:42 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:43 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:44 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:44 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:44 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:45 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:46 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:47 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:47 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:52 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:53 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:54 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:54 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:55 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:56 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:56 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:56 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:57 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:57 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:57 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 12:58 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:00 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:01 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:01 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:02 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:02 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:03 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:03 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:04 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:09 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:10 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:11 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:12 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:13 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:15 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 1:45 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:31 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:39 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:41 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:43 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:46 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 5:46 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 6:43 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 6:46 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 6:47 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 6:48 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------
+User: ::1 - April 22, 2016, 6:48 am
+UNABLE TO CONNECT TO DATABASE
+SQLSTATE[HY000] [1049] Unknown database 'business_days_database2'
+------------------------------------------------------------------------------

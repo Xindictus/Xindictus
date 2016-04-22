@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>XindictusLib CP</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="bootstrap/css/cpanel.css" type="text/css">
+    <!--<link rel='stylesheet' type='text/css' href='bootstrap/css/style.php' />-->
+</head>
+<body class="noSelect">
+
+<div class="container">
+    <div class="row">
+
+        <!--HEADLINES-->
+        <div class="row text-center">
+            <h2 class="amazdoom">
+                XindictusLiB
+                <!--<img src="img/724.gif" style="padding-left: 20px; position: absolute;">-->
+                <img src="img/132.gif" style="padding-left: 20px; position: absolute;">
+            </h2>
+            <h3 id="libVersion" class="version"></h3>
+
+            <h4 class="selfie">
+                Control Panel and Configuration
+            </h4>
+            <hr>
+            <button id="refreshInfo" class="btn btn-default" style="margin-bottom: 10px;" disabled>
+                <span class="glyphicon glyphicon-refresh"></span> Refresh
+            </button>
+
+        </div>
+
+        <div id="version" class="row text-center table-desc">
+            <img id="versionLoader" src="img/724.gif">
+        </div>
+
+        <div class="row col-lg-6 col-md-6 col-sm-12 text-center" style="padding-bottom: 20px">
+            <h3 class="table-desc">
+                Database <span class="glyphicon glyphicon-cog"></span>
+            </h3>
+            <table id="tableDB" class="table table-bordered table-condensed table-responsive tableFont">
+
+                <thead style="background-color: #d9edf7">
+                <tr>
+                    <td width="80%">
+                        <b>
+                            Parameter
+                        </b>
+                    </td>
+                    <td width="20%">
+                        <b>
+                            Status
+                        </b>
+                    </td>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                </tbody>
+            </table>
+            <img id="dbInfoLoader" src="img/346.gif">
+        </div>
+
+
+        <div class="row col-lg-6 col-md-6 col-sm-12 text-center">
+            <h3 class="table-desc">
+                Session <span class="glyphicon glyphicon-user"></span>
+            </h3>
+            <table id="tableSes" class="table table-bordered table-condensed table-responsive tableFont">
+
+                <thead style="background-color: #d9edf7">
+                <tr>
+                    <td width="80%">
+                        <b>
+                            Parameter
+                        </b>
+                    </td>
+                    <td width="20%">
+                        <b>
+                            Status
+                        </b>
+                    </td>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                </tbody>
+            </table>
+            <img id="sessionInfoLoader" src="img/346.gif">
+        </div>
+
+        <div class="clearfix"></div>
+        <hr>
+
+        <!--<div class="col-md-8">-->
+        <div class="panel panel-warning">
+            <div class="panel-heading text-center">
+                <h3 id="alertHead" class="table-desc">
+                    Alert Panel <span class="glyphicon glyphicon-alert"></span>
+                </h3>
+            </div>
+            <div id="alertPanel" class="panel-body text-center">
+                <img id="alertLoader" src="img/379.gif">
+            </div>
+        </div>
+        <!--</div>-->
+
+        <!--<div class="col-md-4" style="padding-bottom: 50px">-->
+        <div style="padding-bottom: 50px">
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">
+                    <h3 id="actionHead" class="table-desc">
+                        Action Panel <span class="glyphicon glyphicon-tasks"></span>
+                    </h3>
+                </div>
+                <div id="actionPanel" class="panel-body text-center">
+                    <!--<img id="actionLoader" src="img/379.gif">-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/cpanel.js"></script>
+
+</html>

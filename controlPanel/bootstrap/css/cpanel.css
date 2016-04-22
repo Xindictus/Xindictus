@@ -1,0 +1,72 @@
+@font-face {
+    font-family: AmazDooMLeft;
+    src: url("../fonts/AmazDooMLeft.ttf");
+}
+@font-face {
+    font-family: SelfieDemo;
+    src: url("../fonts/My Epic Selfie Demo.ttf");
+}
+@font-face {
+    font-family: FFFTusj;
+    src: url("../fonts/FFF Tusj.ttf");
+}
+@font-face {
+    font-family: Lobster;
+    src: url("../fonts/Lobster 1.4.otf");
+}
+.amazdoom {
+    font-family: AmazDooMLeft, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 600%;
+    color: #1b6d85;
+}
+.version {
+    font-family: AmazDooMLeft, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 200%;
+    color: #1b6d85;
+    margin-top: -40px;
+    margin-bottom: 25px;
+}
+.selfie {
+    font-family: SelfieDemo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+.table-desc {
+    font-family: FFFTusj, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 300%;
+}
+.tableFont {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.noSelect,
+.noSelect:hover {
+    /* iOS Safari */
+    -webkit-touch-callout: none;
+
+    /* Chrome/Safari/Opera */
+    -webkit-user-select: none;
+
+    /* Firefox */
+    -moz-user-select: none;
+
+    /* Internet Explorer/Edge */
+    -ms-user-select: none;
+
+    /* Non-prefixed version, currently not supported by any browser */
+    user-select: none;
+
+    cursor: default;
+}
+.td-success {
+    background-color: lightgreen;
+    /*border-radius: 30px;*/
+}
+.td-fail {
+    background-color: #ff8080;
+    /*border-radius: 30px;*/
+}
+.td-null {
+    /*background-color: #eb9316;*/
+    background-color: #ffb84d;
+    /*border-radius: 30px;*/
+}
