@@ -9,7 +9,7 @@ namespace Indictus\Database\CRUD;
 
 interface SimpleCRUD
 {
-    public function insert($tableName, array $tableFields, array $insertValues);
+    public function insert();
     public function update();
     public function delete();
     public function select();

@@ -65,9 +65,9 @@ class LogErrorHandler{
      */
     private function createLogFileName($category){
         if(strpos($category, 'QUERIES') !== false){
-            return __DIR__ . '/error_logs/Queries/'.$category.'/log_'.$category.'_'.date("Y.n.j").'.log';
+            return __DIR__ . '/error_logs/Queries/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
         } else{
-            return __DIR__ . '/error_logs/'.$category.'/log_'.$category.'_'.date("Y.n.j").'.log';
+            return __DIR__ . '/error_logs/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
         }
     }
 

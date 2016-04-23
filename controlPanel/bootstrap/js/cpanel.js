@@ -54,7 +54,8 @@ function fillTable(table, fileName, prefix, info) {
     $.ajax({
         type: 'GET',
         url: 'controllers/'+fileName+'.php',
-        dataType: 'json'
+        dataType: 'json',
+        cache: false
     }).done( function( data ) {
         info = data;
 
@@ -136,10 +137,11 @@ function loadInfo() {
 
     $.ajax({
         type: 'GET',
-        url: 'controllers/libVersion.php',
-        dataType: 'json'
+        url: 'controllers/frameVersion.php',
+        dataType: 'json',
+        cache: false
     }).done( function( version ) {
-        $('#libVersion').html(version);
+        $('#frameVersion').html(version);
     });
 
     versionT = setTimeout(function(){
@@ -147,7 +149,8 @@ function loadInfo() {
         $.ajax({
             type: 'GET',
             url: 'controllers/getVersion.php',
-            dataType: 'json'
+            dataType: 'json',
+            cache: false
         }).done( function( data ) {
             $("#versionLoader").remove();
             $("#version").append('<h4>PHP Version: ' + data + ' ' + span + '</h4>').hide().fadeIn('slow');
@@ -185,7 +188,8 @@ function loadInfo() {
         $.ajax({
             type: 'GET',
             url: 'controllers/getConnectionStatus.php',
-            dataType: 'json'
+            dataType: 'json',
+            cache: false
         }).done( function( status ) {
             $.each(status, function (key, value) {
                 var className = "alert alert-success";
@@ -195,7 +199,7 @@ function loadInfo() {
                     className = "alert alert-danger";
                     message = "Connection with database \"" + key +
                         "\" could not be established.<br>" +
-                        "Check your username and password or database definition.";
+                        "Check your username and password or database definition in \"config.php\".";
                 }
                 alerts.find('#alertLoader').remove();
                 alerts.append('<div class="'+className+'" role="alert">'+message+'</div>');

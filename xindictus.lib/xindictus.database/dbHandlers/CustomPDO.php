@@ -86,9 +86,9 @@ class CustomPDO extends \PDO
                  * set the attributes of errors and
                  * emulated prepared statements.
                  */
-                parent::__construct($configArray['driver'].':host='.$configArray['host']
-                    .';port='.$configArray['port'].';dbname='.$configArray['database']
-                    .';',$configArray['username'],$configArray['password'], $flags);
+                parent::__construct("{$configArray['driver']}:host={$configArray['host']};
+                port={$configArray['port']};dbname={$configArray['database']};",
+                    $configArray['username'],$configArray['password'], $flags);
 
                 /**
                  * Set charset.

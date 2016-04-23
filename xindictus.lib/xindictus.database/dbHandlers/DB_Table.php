@@ -34,12 +34,12 @@ require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
  * Class DB_Table
  * @package Indictus\Database\dbHandlers
  */
-abstract class DB_Table extends dbModel\DB_Model
+class DB_Table extends dbModel\DB_Model
 {
     /**
      * @param CustomPDO $connection
      */
-    protected function setConnection(dbHandlers\CustomPDO $connection)
+    public function setConnection(dbHandlers\CustomPDO $connection)
     {
         self::$connection = $connection;
     }
@@ -56,10 +56,9 @@ abstract class DB_Table extends dbModel\DB_Model
      * @param $table
      * @param array $columnNames
      * @param array $columnValues
-     * @param CustomPDO $connection
      * @return int
      */
-    protected function process_insert($table, array $columnNames, array $columnValues, dbHandlers\CustomPDO $connection)
+    protected function process_insert($table, array $columnNames, array $columnValues)
     {
         /**
          * Create the appropriate strings and arrays that will be used for the query.
@@ -83,9 +82,10 @@ abstract class DB_Table extends dbModel\DB_Model
         $bindings = $prepareQuery->getBindings();
 
         /**
-         * Initialize query string.
+         * Initialize query string and stmt.
          */
         $insert_query = "";
+        $insert_stmt = null;
 
         try {
             /**
@@ -96,7 +96,7 @@ abstract class DB_Table extends dbModel\DB_Model
             /**
              * Prepared Statement and execution.
              */
-            $insert_stmt = $connection->prepare($insert_query);
+            $insert_stmt = $this->getConnection()->prepare($insert_query);
             $insert_stmt->execute($bindings);
 
             /**
@@ -121,7 +121,11 @@ abstract class DB_Table extends dbModel\DB_Model
 
             $err_handler = new Errno\LogErrorHandler($error_string, $category);
             $err_handler->createLogs();
-            return 1;
+
+            $errorCode = $insert_stmt->errorCode();
+            $errorInfo = $insert_stmt->errorInfo();
+            $insert_stmt = null;
+            return $errorInfo;
         }
         return 0;
     }

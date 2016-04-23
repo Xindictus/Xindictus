@@ -7,9 +7,11 @@
  */
 namespace Indictus\Model;
 
+use Indictus\Database\CRUD\SimpleCRUD;
+
 require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 
-class Test2 extends Entity{
+class Test2 extends Entity implements SimpleCRUD{
 
     const DATABASE = "business_days";
     private static $TABLE_NAME = "event";
@@ -27,10 +29,26 @@ class Test2 extends Entity{
         $this->event_id = $event_id;
     }
 
-    public function insertRow()
+    public function insert()
     {
-        $this->insert(self::$TABLE_NAME, self::$table_fields, $this->getObjectValues());
+        return parent::process_insert(self::$TABLE_NAME, self::$table_fields, $this->getObjectValues());
     }
+
+    public function update()
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function delete()
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public function select()
+    {
+        // TODO: Implement select() method.
+    }
+
 //
 //    public function updateRow($connection, array $update_fields)
 //    {

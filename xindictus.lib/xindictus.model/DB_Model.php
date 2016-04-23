@@ -13,9 +13,9 @@ abstract class DB_Model
 {
     protected static $connection;
 
-    abstract protected function setConnection(dbHandlers\CustomPDO $connection);
+    abstract public function setConnection(dbHandlers\CustomPDO $connection);
 
-    abstract protected function process_insert($table, array $columnNames, array $columnValues, dbHandlers\CustomPDO $connection);
+    abstract protected function process_insert($table, array $columnNames, array $columnValues);
     abstract protected function process_update();
     abstract protected function process_delete();
     abstract protected function process_select();

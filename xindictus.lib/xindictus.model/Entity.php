@@ -13,26 +13,26 @@ use Indictus\Filtering\Validation as val;
 
 require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 
-abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Validator
+abstract class Entity extends dbH\DB_Table implements val\Validator
 {
-    public function insert($tableName, array $tableFields, array $insertValues)
+    protected function process_insert($tableName, array $tableFields, array $insertValues)
     {
-        return $this->process_insert($tableName, $tableFields, $insertValues, $this->getConnection());
+        return parent::process_insert($tableName, $tableFields, $insertValues);
     }
 
-    public function update()
+    protected function process_update()
     {
-        return $this->process_update();
+        return parent::process_update();
     }
 
-    public function delete()
+    protected function process_delete()
     {
-        return $this->process_delete();
+        return parent::process_delete();
     }
 
-    public function select()
+    protected function process_select()
     {
-        return $this->process_select();
+        return parent::process_select();
     }
 
     public function strip_input(&$dataFields)
@@ -40,6 +40,36 @@ abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Valid
         foreach ($dataFields as $key => $value)
             $dataFields[$key] = strip_tags(html_entity_decode($value));
     }
+
+//    public function lastInsertId($column)
+//    {
+//
+//    }
+//
+//    public function count()
+//    {
+//        return $this->rowCount();
+//    }
+//
+//    public function rowCount()
+//    {
+//        return $this->_statement->rowCount();
+//    }
+//
+//    public function errorInfo()
+//    {
+//        return $this->_statement->errorInfo();
+//    }
+//
+//    public function errorCode()
+//    {
+//        return $this->_statement->errorCode();
+//    }
+//
+//    public function columnCount()
+//    {
+//        return $this->_statement->columnCount();
+//    }
 
     abstract function validate_input();
 }
