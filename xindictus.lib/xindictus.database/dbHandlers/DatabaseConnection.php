@@ -26,14 +26,19 @@ namespace Indictus\Database\dbHandlers;
 
 use Indictus\Exception\ErHandlers as Errno;
 
-include_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 /**
  * Class DatabaseConnection
  * @package Indictus\Database\Handlers
+ *
+ * This class is used to create connection to a given database.
  */
-class DatabaseConnection{
-
+class DatabaseConnection
+{
     /**
      * @param $dbAssociate: the database alias
      * @return CustomPDO: return a new CustomPDO - which extends PDO - instance
@@ -63,7 +68,7 @@ class DatabaseConnection{
         /**
          * Check whether $connection is already null.
          */
-        if($connection == null)
+        if ($connection == null)
             return 0;
 
         /**
@@ -71,19 +76,21 @@ class DatabaseConnection{
          */
         try {
 
+            /**
+             * Close connection
+             */
             $connection = null;
             return 0;
+        } catch (\PDOException $closeException) {
 
-        } catch (\PDOException $close_exception) {
-
-            $error_string = 'User: '.$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+            $errorString = 'User: '.$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
                 'FAILED TO CLOSE CONNECTION TO DATABASE'.PHP_EOL.
-                $close_exception->getMessage();
+                $closeException->getMessage();
 
             $category = "DatabaseConnection";
-            
-            $err_handler = new Errno\LogErrorHandler($error_string, $category);
-            $err_handler->createLogs();
+
+            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+            $errorHandler->createLogs();
 
             return - 1;
         }

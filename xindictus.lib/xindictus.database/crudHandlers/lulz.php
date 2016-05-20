@@ -17,7 +17,7 @@ include_once(__DIR__ . "/CombinedArray.php");
  */
 include_once(__DIR__ . "/../../xindictus.exception/error_handlers/LogErrorHandler.php");
 
-class SimpleCRUD extends CombinedArray{
+class lulz extends CombinedArray{
 
     private $table_fields;
     private $named_parameters;

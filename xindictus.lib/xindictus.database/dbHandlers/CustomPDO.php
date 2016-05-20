@@ -27,7 +27,10 @@ namespace Indictus\Database\dbHandlers;
 use Indictus\Config\AutoConfigure as AC;
 use Indictus\Exception\ErHandlers as Errno;
 
-include_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 /**
  * Class CustomPDO
@@ -47,8 +50,8 @@ class CustomPDO extends \PDO
      * Overriding PDO constructor
      * @param $dbAssociate(REQUIRED). It is used to define which database to use.
      */
-    function __construct($dbAssociate){
-
+    function __construct($dbAssociate)
+    {
         /**
          * Initialize $category with UNMATCHED,
          * for exceptions that are unable to handle.
@@ -73,7 +76,9 @@ class CustomPDO extends \PDO
          * Throw an exception relevant to each code instance.
          */
         try {
-            if(isset($dbAssociate) && !empty($dbAssociate)){
+            if (isset($dbAssociate) && !empty($dbAssociate)) {
+
+                //TODO: WHITELIST DATABASE ASSOCIATION
 
                 /**
                  * Gets the connection parameters and flags.
@@ -91,9 +96,9 @@ class CustomPDO extends \PDO
                     $configArray['username'],$configArray['password'], $flags);
 
                 /**
-                 * Set charset.
+                 * Set CHARACTER SET
                  */
-                $this->exec("SET CHARACTER SET utf8");
+                $this->exec("SET CHARACTER SET {$config->getParam('charset')}");
 
                 /**
                  * Set SQL timezone.
@@ -104,11 +109,11 @@ class CustomPDO extends \PDO
                  * Update $isConnected value.
                  */
                 $this->isConnected = 1;
-            } else{
-                $error_string = 'PDO CONSTRUCTOR ERROR'.PHP_EOL.
+            } else {
+                $errorString = 'PDO CONSTRUCTOR ERROR'.PHP_EOL.
                     'Database Association given :: "'.$dbAssociate.'"';
                 $category = "FalseDatabaseParameters";
-                throw new \Exception($error_string);
+                throw new \Exception($errorString);
             }
         } catch (\Exception $customPDOException) {
 
@@ -116,14 +121,14 @@ class CustomPDO extends \PDO
              * @param $error_string: Finalizing it.
              * Initialization and call of log error handler.
              */
-            if(!isset($error_string) && empty($error_string)){
-                $error_string = 'UNABLE TO CONNECT TO DATABASE'.PHP_EOL.
+            if (!isset($errorString) && empty($errorString)) {
+                $errorString = 'UNABLE TO CONNECT TO DATABASE'.PHP_EOL.
                     $customPDOException->getMessage();
                 $category = "DatabaseConnection";
             }
 
-            $err_handler = new Errno\LogErrorHandler($error_string, $category);
-            $err_handler->createLogs();
+            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+            $errorHandler->createLogs();
         }
     }
 

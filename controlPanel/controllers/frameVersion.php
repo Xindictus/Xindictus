@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  *
- * File: libVersion.php
+ * File: frameVersion.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
  * Date: 21/4/2016

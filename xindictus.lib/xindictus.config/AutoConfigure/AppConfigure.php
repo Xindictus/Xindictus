@@ -24,25 +24,32 @@
  ******************************************************************************/
 namespace Indictus\Config\AutoConfigure;
 
-include_once(__DIR__."/../AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once(__DIR__."/../AutoLoader/AutoLoader.php");
 
 /**
  * Class AppConfigure
  * @package Indictus\Config\AutoConfigure
+ *
+ * This class loads the configuration properties for the Application.
  */
 class AppConfigure extends Configure
 {
     /**
-     * @var
+     * @var $configArray: This array consists of the App variables
+     * taken right from the configuration file.
      */
     protected $configArray;
+
     /**
-     * @var
+     * @var $phpVer: The PHP version.
      */
     protected $phpVer;
 
     /**
-     * DBConfigure constructor.
+     * AppConfigure constructor.
      */
     public function __construct()
     {
@@ -52,21 +59,21 @@ class AppConfigure extends Configure
     }
 
     /**
-     * @param null $associate
-     * @return string
+     * @param null $associate: The name of the parameter we are searching.
+     * @return mixed: Returns the parameter's value, or, if the parameter
+     * was not found, returns -1.
      */
     function getParam($associate = null)
     {
         if($associate == null)
             return $this->configArray;
-        else
-            if(array_key_exists($associate, $this->configArray))
-                return $this->configArray[$associate];
-        return "";
+        if(array_key_exists($associate, $this->configArray))
+            return $this->configArray[$associate];
+        return -1;
     }
 
     /**
-     * @return mixed
+     * @return: Returns the PHP version.
      */
     public function getPhpVer()
     {

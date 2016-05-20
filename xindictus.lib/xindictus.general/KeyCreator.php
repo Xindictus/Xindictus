@@ -6,8 +6,8 @@
  * Time: 06:53
  */
 
-interface KeyCreator{
-
+interface KeyCreator
+{
     function createNumKey($user_id);
     function createStringKey();
     function createMixedKey();

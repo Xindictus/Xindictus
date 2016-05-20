@@ -27,6 +27,9 @@ namespace Indictus\Database\dbHandlers;
 /**
  * Class PrepareStatement
  * @package Indictus\Database\dbHandlers
+ *
+ * This class is used to create the arrays necessary for the prepared statements
+ * of PDO.
  */
 class PrepareStatement
 {
@@ -61,18 +64,18 @@ class PrepareStatement
     }
 
     /**
-     * @return string: returns in a string the column fields,
+     * @return string: returns in a string the column names,
      * separated by commas.
      */
     public function getColumnFields()
     {
         $columnNames = "";
 
-        /*
-         * If columnValues[0] == null, means that we have a table with AUTO_INCREMENT ID,
-         * so we remove the first table column.
+        /**
+         * If columnValues[0] == null, it means that we have a table
+         * with AUTO_INCREMENT ID, so we remove the first table column and value.
          */
-        if($this->columnValues[0] == null) {
+        if ($this->columnValues[0] == null) {
             array_shift($this->columnNames);
             array_shift($this->columnValues);
         }
@@ -80,8 +83,8 @@ class PrepareStatement
         foreach ($this->columnNames as $value)
             $columnNames .= "$value,";
 
-        /*
-         * Return without trailing comma
+        /**
+         * Return $this->columnNames without trailing comma
          */
         return rtrim($columnNames, ',');
     }
@@ -98,15 +101,15 @@ class PrepareStatement
             array_push($this->preparedNamedParameters, ":$value");
         }
 
-        /*
+        /**
          * Return without trailing comma
          */
         return rtrim($preparedNamedParameters, ',');
     }
 
     /**
-     * @return array: returns an associative array with keys the $preparedNamedParameters
-     * and values the $columnValues.
+     * @return array: returns an associative array with keys
+     * the $preparedNamedParameters and values the $columnValues.
      */
     public function getBindings()
     {

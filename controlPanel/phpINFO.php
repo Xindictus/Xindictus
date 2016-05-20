@@ -22,7 +22,7 @@
 <div class="container">
     <div class="row col-md-12 col-sm-12">
         <div class="row text-center">
-            <a href="index.html" data-spy="affix">
+            <a href="index.php" data-spy="affix">
                 <button class="btn btn-info">Return</button>
             </a>
         </div>

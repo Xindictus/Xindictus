@@ -1,3 +1,17 @@
+<?php
+
+use Indictus\Config\AutoConfigure as AC;
+
+require_once(__DIR__ . "/../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
+
+$appConf = new AC\AppConfigure;
+
+if ($appConf->getGlobalParam('debug') !== 'enabled') {
+    header("Location: ../");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

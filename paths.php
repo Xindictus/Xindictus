@@ -36,7 +36,6 @@ if (!defined('Indictus')) {
     define('Indictus', ROOT . DS . "xindictus.lib");
 }
 
-
 return [
     'Indictus' => Indictus,
 
@@ -46,6 +45,7 @@ return [
     'Database' => 'xindictus.database',
     'CRUD' => 'crudHandlers',
     'dbHandlers' => 'dbHandlers',
+    'moreHandlers' => 'moreHandlers',
 
     'Exception' => 'xindictus.exception',
     'ErHandlers' => 'error_handlers',

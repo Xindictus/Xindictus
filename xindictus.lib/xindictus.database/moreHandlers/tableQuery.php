@@ -22,11 +22,38 @@
  * Time: 10:48
  *
  ******************************************************************************/
-namespace Indictus\Database\Handlers;
+namespace Indictus\Database\moreHandlers;
 
+/**
+ * Interface tableQuery
+ * @package Indictus\Database\moreHandlers
+ *
+ * This interface provides a set useful methods concerning a database table.
+ */
 interface tableQuery
 {
-    public function columnCount();
-    public function rowCount();
+    /**
+     * @param $database
+     * @param $table
+     * @return mixed
+     *
+     * Returns the number of table columns.
+     */
+    public function columnCount($database, $table);
+
+    /**
+     * @param $table
+     * @return mixed
+     *
+     * Returns the count of rows of the specified table.
+     */
+    public function rowCount($table);
+
+    /**
+     * @param $column
+     * @return mixed
+     *
+     * Returns the last inserted ID of specified column
+     */
     public function lastInsertId($column);
 }

@@ -24,21 +24,26 @@
  ******************************************************************************/
 namespace Indictus\Config\AutoConfigure;
 
-include_once(__DIR__."/../AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once(__DIR__."/../AutoLoader/AutoLoader.php");
 
 /**
  * Class Configure
  * @package Indictus\Config\AutoConfigure
+ *
+ * This abstract class loads the configuration file.
  */
 abstract class Configure
 {
     /**
-     * @var mixed
+     * @var $configFile: The configuration file.
      */
     protected $configFile;
 
     /**
-     * Configure constructor.
+     * Load configuration.
      */
     public function __construct()
     {
@@ -46,16 +51,15 @@ abstract class Configure
     }
 
     /**
-     * @param $associate
-     * @return mixed|string
+     * @param $associate: Association for global variable.
+     * @return mixed|string: Returns a string or array, depending on the association.
      */
-    public function getGlobalParam($associate)
+    public function getGlobalParam($associate = null)
     {
-        if($associate == null)
+        if ($associate == null)
             return $this->configFile;
-        else
-            if(array_key_exists($associate, $this->configFile))
-                return $this->configFile[$associate];
+        if(array_key_exists($associate, $this->configFile))
+            return $this->configFile[$associate];
         return "";
     }
 

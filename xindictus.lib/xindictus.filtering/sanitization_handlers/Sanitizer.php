@@ -6,7 +6,7 @@
  * Time: 09:10
  */
 
-interface Sanitizer{
-
+interface Sanitizer
+{
     function sanitize_user_input();
 }

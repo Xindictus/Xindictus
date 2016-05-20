@@ -24,28 +24,39 @@
  ******************************************************************************/
 namespace Indictus\Database\dbHandlers;
 
-use Indictus\Model as dbModel;
-use Indictus\Database\dbHandlers as dbHandlers;
+use Indictus\Config\AutoConfigure as AC;
+use Indictus\Database\moreHandlers as mH;
 use Indictus\Exception\ErHandlers as Errno;
+use Indictus\Model as dbModel;
 
+/**
+ * Require AutoLoader
+ */
 require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 /**
  * Class DB_Table
  * @package Indictus\Database\dbHandlers
+ *
+ * This class implements the methods for inserting/updating/deleting/selecting
+ * rows for a specified table.
  */
-class DB_Table extends dbModel\DB_Model
+abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
 {
     /**
-     * @param CustomPDO $connection
+     * @param CustomPDO $connection: A PDO connection to a database.
+     *
+     * This method sets the connection to the database for the specified object.
      */
-    public function setConnection(dbHandlers\CustomPDO $connection)
+    public function setConnection(CustomPDO $connection)
     {
         self::$connection = $connection;
     }
 
     /**
      * @return \Indictus\Database\dbHandlers\CustomPDO
+     *
+     * This method returns the current connection.
      */
     public static function getConnection()
     {
@@ -53,22 +64,25 @@ class DB_Table extends dbModel\DB_Model
     }
 
     /**
-     * @param $table
-     * @param array $columnNames
-     * @param array $columnValues
-     * @return int
+     * @param $table: The table where new row will be inserted.
+     * @param array $columnNames: The column names of the table.
+     * @param array $columnValues: The values of each column.
+     * @return int: The return type.
+     *
+     * This method processes the insert of a row in a table.
+     * Returns 0 if insertion was successful or 1 if insertion failed.
      */
     protected function process_insert($table, array $columnNames, array $columnValues)
     {
         /**
-         * Create the appropriate strings and arrays that will be used for the query.
+         * Creates the appropriate strings and arrays that will be used for the query.
          */
-        $prepareQuery = new dbHandlers\PrepareStatement($columnNames, $columnValues);
+        $prepareQuery = new PrepareStatement($columnNames, $columnValues);
 
         /**
          * Get needed column fields in a string separated by commas.
          */
-        $table_fields = $prepareQuery->getColumnFields();
+        $tableFields = $prepareQuery->getColumnFields();
 
         /**
          * Get the needed named parameters in a string separated by commas.
@@ -84,48 +98,55 @@ class DB_Table extends dbModel\DB_Model
         /**
          * Initialize query string and stmt.
          */
-        $insert_query = "";
-        $insert_stmt = null;
+        $insertQuery = "";
+        $insertStmt = null;
 
         try {
             /**
              * Dynamically creating the query.
              */
-            $insert_query = "INSERT INTO {$table}({$table_fields}) VALUES({$namedParam})";
+            $insertQuery = "INSERT INTO {$table}({$tableFields}) VALUES({$namedParam})";
 
             /**
              * Prepared Statement and execution.
              */
-            $insert_stmt = $this->getConnection()->prepare($insert_query);
-            $insert_stmt->execute($bindings);
+            $insertStmt = $this->getConnection()->prepare($insertQuery);
+            $insertStmt->execute($bindings);
 
             /**
-             * Further check if insertion happened.
+             * Further check if insertion happened by checking
+             * the number of affected rows.
              */
-//            $affected_rows = $insert_stmt->rowCount();
-            if($insert_stmt->rowCount() == 0)
+            if ($insertStmt->rowCount() == 0)
                 throw new \PDOException("AFFECTED ROWS = 0");
 
             /**
              * Close stmt
              */
-            $insert_stmt = null;
+            $insertStmt = null;
 
-        } catch(\PDOException $insert_exception){
-            $error_string = 'Insert Fail :: '.$insert_query.PHP_EOL.
-                'Table Fields given :: ('. $table_fields . ')' . PHP_EOL .
+        } catch(\PDOException $insertException) {
+            $errorString = 'Insert Fail :: '.$insertQuery.PHP_EOL.
+                'Table Fields given :: ('. $tableFields . ')' . PHP_EOL .
                 'Named parameters :: ('. $namedParam . ')' . PHP_EOL.
                 'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL.
-                'Database Message :: '.$insert_exception->getMessage();
+                'Database Message :: '.$insertException->getMessage();
             $category = "INSERT_QUERIES";
 
-            $err_handler = new Errno\LogErrorHandler($error_string, $category);
-            $err_handler->createLogs();
+            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+            $errorHandler->createLogs();
 
-            $errorCode = $insert_stmt->errorCode();
-            $errorInfo = $insert_stmt->errorInfo();
-            $insert_stmt = null;
-            return $errorInfo;
+            /**
+             * Set the errorCode and errorInfo of the last failed query.
+             */
+            self::$errorCode = $insertStmt->errorCode();
+            self::$errorInfo = $insertStmt->errorInfo();
+
+            /**
+             * Close stmt
+             */
+            $insertStmt = null;
+            return -1;
         }
         return 0;
     }
@@ -146,5 +167,93 @@ class DB_Table extends dbModel\DB_Model
     {
         return 0;
         // TODO: Implement process_select() method.
+    }
+
+    /**
+     * @param $database: Database alias.
+     * @param $table: Table name.
+     * @return int: Number of table columns.
+     */
+    public function columnCount($database, $table)
+    {
+        //TODO: POSSIBLE GET ACCESS RETURN TO VERIFY IF EXISTS
+        $dbAC = new AC\DBConfigure;
+        $database = $dbAC->getAccess($database);
+        //TODO: PREPARED STATEMENT, ERROR HANDLING
+        $query = $this->getConnection()->query("
+            SELECT COUNT(*) as columnCount 
+            FROM information_schema.columns 
+            WHERE TABLE_SCHEMA = '{$database['database']}'
+            AND TABLE_NAME = '{$table}'")->fetch();
+        return $query['columnCount'];
+    }
+
+    /**
+     * @param $table: Table name.
+     * @return int: Number of rows in table.
+     */
+    public function rowCount($table)
+    {
+        //TODO: PREPARED STATEMENT, ERROR HANDLING
+        $query = $this->getConnection()->query("
+            SELECT COUNT(*) as rowCount
+            FROM {$table}")->fetch();
+        return $query['rowCount'];
+    }
+
+    /**
+     * @param $column: Column name.
+     * @return int: Last inserted ID.
+     */
+    public function lastInsertId($column)
+    {
+        //TODO: PREPARED STATEMENT, ERROR HANDLING
+        $queryParts = explode(".", $column);
+        $query = $this->getConnection()->query("
+            SELECT {$queryParts[1]} as lastID
+            FROM  {$queryParts[0]}
+            ORDER BY {$queryParts[1]} DESC
+            LIMIT 1")->fetch();
+        return $query['lastID'];
+    }
+
+    /**
+     * @param int $errorCode
+     *
+     * This method sets the errorCode of last failed query.
+     */
+    public static function setErrorCode($errorCode)
+    {
+        self::$errorCode = $errorCode;
+    }
+
+    /**
+     * @return int
+     *
+     * This method returns the errorCode of the last failed query.
+     */
+    public static function getErrorCode()
+    {
+        return self::$errorCode;
+    }
+
+    /**
+     * @param string $errorInfo
+     *
+     * This method sets the errorInfo of the last failed query.
+     */
+    public static function setErrorInfo($errorInfo)
+    {
+        self::$errorInfo = $errorInfo;
+    }
+
+    /**
+     * @return string
+     *
+     * This method returns the errorInfo of the last failed query.
+     */
+    public static function getErrorInfo()
+    {
+        return self::$errorInfo;
     }
 }

@@ -173,7 +173,7 @@ function loadInfo() {
     tableTimer++;
     setTimeout(function() {
         var className = "alert alert-success";
-        var message = "You PHP Version supports Xindictus Library.";
+        var message = "Your PHP Version supports Xindictus Library.";
         if(compare(phpVer, "5.3.25") == -1){
             className = "alert alert-danger";
             message = "You should have at least PHP Version >= 5.3.25 to use Xindictus Library.";

@@ -14,7 +14,7 @@ include_once(__DIR__ . "/../../xindictus.lib/xindictus.filtering/validationHandl
 include_once(__DIR__ . "/../../xindictus.lib/xindictus.filtering/sanitization_handlers/Sanitizer.php");
 
 class Panorama_User extends SimpleCRUD implements Validator, Sanitizer{
-
+    
     /**
      * Defining DATABASE, TABLE_NAME and table_fields of the class.
      */

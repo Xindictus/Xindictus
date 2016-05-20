@@ -47,14 +47,6 @@ class SessionConfigure extends Configure
     }
 
     /**
-     * @return mixed
-     */
-    function getSessionInfo()
-    {
-        return $this->configArray;
-    }
-
-    /**
      * @param $associate
      * @return string
      */
@@ -62,10 +54,9 @@ class SessionConfigure extends Configure
     {
         if($associate == null)
             return $this->configArray;
-        else
-            if(array_key_exists($associate, $this->configArray))
-                return $this->configArray[$associate];
-        return "";
+        if(array_key_exists($associate, $this->configArray))
+            return $this->configArray[$associate];
+        return -1;
     }
 
 }

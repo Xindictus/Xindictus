@@ -29,12 +29,14 @@ include_once(__DIR__."/../AutoLoader/AutoLoader.php");
 /**
  * Class DBConfigure
  * @package Indictus\Config\AutoConfigure
+ *
+ * This class loads the configuration properties for the Database.
  */
 class DBConfigure extends Configure
 {
-
     /**
-     * @var
+     * @var $configArray: This array consists of the Database variables
+     * taken right from the configuration file.
      */
     protected $configArray;
 
@@ -55,21 +57,22 @@ class DBConfigure extends Configure
     {
         if($associate == null)
             return $this->configArray;
-        else
-            if(array_key_exists($associate, $this->configArray))
-                return $this->configArray[$associate];
-        return "";
+        if(array_key_exists($associate, $this->configArray))
+            return $this->configArray[$associate];
+        return -1;
     }
 
     /**
-     * @param string $databaseAssoc
-     * @return array
+     * @param string $databaseAssoc: The database alias.
+     * @return array: Returns an array with all the configuration settings for
+     * the selected database. If the alias is not found, it returns -1.
      */
     public function getAccess($databaseAssoc = "")
     {
-        $database = "";
         if (array_key_exists($databaseAssoc, $this->configArray['database']))
             $database = $this->configArray['database'][$databaseAssoc];
+        else
+            return -1;
 
         return [
             'driver' => $this->configArray['driver'],
@@ -82,12 +85,10 @@ class DBConfigure extends Configure
     }
 
     /**
-     * @return mixed
+     * @return array: Returns the flags for the PDO connection.
      */
     public function getFlags()
     {
         return $this->configArray['flags'];
     }
-
-
 }
