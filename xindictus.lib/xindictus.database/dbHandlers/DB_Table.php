@@ -63,8 +63,9 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
         return self::$connection;
     }
 
+    //TODO: WHITELIST TABLES AS WELL | OBSOLETE
     /**
-     * @param $table: The table where new row will be inserted.
+     * @param $tableName: The table where new row will be inserted.
      * @param array $columnNames: The column names of the table.
      * @param array $columnValues: The values of each column.
      * @return int: The return type.
@@ -72,7 +73,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
      * This method processes the insert of a row in a table.
      * Returns 0 if insertion was successful or 1 if insertion failed.
      */
-    protected function process_insert($table, array $columnNames, array $columnValues)
+    protected function process_insert($tableName, array $columnNames, array $columnValues)
     {
         /**
          * Creates the appropriate strings and arrays that will be used for the query.
@@ -105,7 +106,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Dynamically creating the query.
              */
-            $insertQuery = "INSERT INTO {$table}({$tableFields}) VALUES({$namedParam})";
+            $insertQuery = "INSERT INTO {$tableName}({$tableFields}) VALUES({$namedParam})";
 
             /**
              * Prepared Statement and execution.
@@ -126,10 +127,10 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             $insertStmt = null;
 
         } catch(\PDOException $insertException) {
-            $errorString = 'Insert Fail :: '.$insertQuery.PHP_EOL.
+            $errorString = 'Insert Fail :: ' . $insertQuery . PHP_EOL .
                 'Table Fields given :: ('. $tableFields . ')' . PHP_EOL .
-                'Named parameters :: ('. $namedParam . ')' . PHP_EOL.
-                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL.
+                'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
+                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
                 'Database Message :: '.$insertException->getMessage();
             $category = "INSERT_QUERIES";
 
@@ -151,22 +152,145 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
         return 0;
     }
 
-    protected function process_update()
+    protected function process_update($table, array $columnNames, array $columnValues, array $updateRow)
     {
-        return 0;
         // TODO: Implement process_update() method.
+
+        $updateQuery = "UPDATE SET WHERE";
+        return 0;
     }
 
-    protected function process_delete()
+    protected function process_delete($tableName, array $deleteRow)
     {
+//        /**
+//         * Initialize query string and stmt.
+//         */
+//        $deleteQuery = "";
+//        $deleteStmt = null;
+//
+//        try {
+//            /**
+//             * Dynamically creating the query.
+//             */
+//            $deleteQuery = "DELETE FROM {$tableName} WHERE {$namedParam}";
+//
+//            /**
+//             * Prepared Statement and execution.
+//             */
+//            $deleteStmt = $this->getConnection()->prepare($deleteQuery);
+//            $deleteStmt->execute($bindings);
+//
+//            /**
+//             * Further check if insertion happened by checking
+//             * the number of affected rows.
+//             */
+//            if ($deleteStmt->rowCount() == 0)
+//                throw new \PDOException("AFFECTED ROWS = 0");
+//
+//            /**
+//             * Close stmt
+//             */
+//            $deleteStmt = null;
+//
+//        } catch(\PDOException $deleteException) {
+//            $errorString = 'Insert Fail :: ' . $deleteQuery . PHP_EOL .
+//                'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
+//                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
+//                'Database Message :: '.$deleteException->getMessage();
+//            $category = "DELETE_QUERIES";
+//
+//            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+//            $errorHandler->createLogs();
+//
+//            /**
+//             * Set the errorCode and errorInfo of the last failed query.
+//             */
+//            self::$errorCode = $deleteStmt->errorCode();
+//            self::$errorInfo = $deleteStmt->errorInfo();
+//
+//            /**
+//             * Close stmt
+//             */
+//            $deleteStmt = null;
+//            return -1;
+//        }
         return 0;
         // TODO: Implement process_delete() method.
     }
 
-    protected function process_select()
+    /**
+     * @param $tableName
+     * @param array|null $selectRow
+     * @param string $selectColumns
+     * @param string $className
+     * @return array|int
+     */
+    protected function process_select($tableName, array $selectRow = null, $selectColumns = "*", $className = "")
     {
-        return 0;
-        // TODO: Implement process_select() method.
+        $selectQuery = "";
+        $selectStmt = null;
+        $namedParam = "";
+        $bindings = array();
+
+        /**
+         * Dynamically creating the query.
+         */
+        if ($selectRow != null) {
+            $prepareQuery = new PrepareStatementSelect(array_keys($selectRow), array_values($selectRow));
+
+            $namedParam = $prepareQuery->getPreparedNamedParameters();
+            $bindings = $prepareQuery->getBindings();
+            $whereClause = $prepareQuery->getWhereClause();
+
+            if ($whereClause != "")
+                $selectQuery = "SELECT {$selectColumns} FROM {$tableName} {$whereClause} ORDER BY event_id";
+            else {
+                $selectQuery = "SELECT {$selectColumns} FROM {$tableName} ORDER BY event_id";
+                $bindings = array();
+            }
+        }
+
+        if ($selectRow == null)
+            $selectQuery = "SELECT {$selectColumns} FROM {$tableName} ORDER BY event_id";
+
+        try {
+
+            /**
+             * Prepared Statement and execution.
+             */
+            $selectStmt = $this->getConnection()->prepare($selectQuery);
+            $selectStmt->execute($bindings);
+
+            $result = $selectStmt->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, $className);
+
+            /**
+             * Close stmt
+             */
+            $selectStmt = null;
+            return $result;
+
+        } catch(\PDOException $selectException) {
+            $errorString = 'Insert Fail :: ' . $selectQuery . PHP_EOL .
+                'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
+                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
+                'Database Message :: '.$selectException->getMessage();
+            $category = "SELECT_QUERIES";
+
+            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+            $errorHandler->createLogs();
+
+            /**
+             * Set the errorCode and errorInfo of the last failed query.
+             */
+//            self::$errorCode = $selectStmt->errorCode();
+//            self::$errorInfo = $selectStmt->errorInfo();
+
+            /**
+             * Close stmt
+             */
+            $selectStmt = null;
+            return -1;
+        }
     }
 
     /**

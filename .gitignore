@@ -1,5 +1,6 @@
 .idea/**
 test/**
+xindictus.lib/xindictus.cache/**
 *.test.php
 *.log
 *.sql

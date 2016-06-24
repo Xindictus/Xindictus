@@ -78,7 +78,9 @@ class CustomPDO extends \PDO
         try {
             if (isset($dbAssociate) && !empty($dbAssociate)) {
 
-                //TODO: WHITELIST DATABASE ASSOCIATION
+                //TODO: WHITELIST DATABASE ASSOCIATION ->
+                // WILL BE DONE WHEN COMPLETED THE TO-DO FROM CONFIG (MULTIPLE
+                // SUPPORT FOR DATABASE
 
                 /**
                  * Gets the connection parameters and flags.

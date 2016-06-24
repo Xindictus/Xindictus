@@ -47,6 +47,14 @@ class SessionConfigure extends Configure
     }
 
     /**
+     * @return mixed
+     */
+    function getSessionInfo()
+    {
+        return $this->configArray;
+    }
+
+    /**
      * @param $associate
      * @return string
      */

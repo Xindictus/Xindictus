@@ -40,7 +40,7 @@ require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
  */
 class LogErrorHandler
 {
-    //TODO CHECK FOR FOLDERS, IF NOT EXIST, CREATE THEM, POSSIBLY DIVIDE FOLDERS MORE
+    //TODO: POSSIBLY DIVIDE FOLDERS MORE
     /**
      * @param string $errorString: The string created to be saved in the logs.
      */
@@ -68,7 +68,8 @@ class LogErrorHandler
      * @param $mainError: The error caught from an exception.
      * @return string: Returns the final string that will be logged.
      */
-    private function createErrorLog($mainError){
+    private function createErrorLog($mainError)
+    {
         $errStr = 'User: '. $_SERVER['REMOTE_ADDR'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL.
             $mainError.PHP_EOL.
             str_repeat ('---------------------------------------', 2).PHP_EOL;
@@ -79,18 +80,22 @@ class LogErrorHandler
      * @param $category: The category is part of the file name, in order to group error messages accordingly.
      * @return string: Returns the file location and filename along with the date the error occurred.
      */
-    private function createLogFileName($category){
-        if(strpos($category, 'QUERIES') !== false){
+    private function createLogFileName($category)
+    {
+        if (!file_exists(__DIR__ . '/error_logs/Queries/'.$category))
+            mkdir(__DIR__ . '/error_logs/Queries/'.$category, 0777, true);
+
+        if(strpos($category, 'QUERIES') !== false)
             return __DIR__ . '/error_logs/Queries/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
-        } else{
+        else
             return __DIR__ . '/error_logs/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
-        }
     }
 
     /**
      * Appends error message to the file specified.
      */
-    function createLogs(){
+    function createLogs()
+    {
         file_put_contents($this->logFileName, $this->errorString, FILE_APPEND);
     }
 }

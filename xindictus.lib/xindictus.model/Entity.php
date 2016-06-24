@@ -56,19 +56,19 @@ abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Valid
         return parent::process_insert($tableName, $tableFields, $insertValues);
     }
 
-    protected function process_update()
+    protected function process_update($tableName, array $tableFields, array $updateValues, array $updateRow)
     {
-        return parent::process_update();
+        return parent::process_update($tableName, $tableFields, $updateValues, $updateRow);
     }
 
-    protected function process_delete()
+    protected function process_delete($tableName, array $deleteRow)
     {
-        return parent::process_delete();
+        return parent::process_delete($tableName, $deleteRow);
     }
 
-    protected function process_select()
+    protected function process_select($tableName, array $selectRow = null, $selectColumns = "*", $className)
     {
-        return parent::process_select();
+        return parent::process_select($tableName, $selectRow, $selectColumns, $className);
     }
 
     /**

@@ -1,10 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Xindictus
- * Date: 13/4/2016
- * Time: 06:35
- */
+/******************************************************************************
+ * Copyright (c) 2016 Konstantinos Vytiniotis, All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ * File: .php
+ * User: Konstantinos Vytiniotis
+ * Email: konst.vyti@hotmail.com
+ * Date:
+ * Time:
+ *
+ ******************************************************************************/
 namespace Indictus\Model;
 
 /**
@@ -12,22 +29,17 @@ namespace Indictus\Model;
  */
 require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 
-class TestObject extends Entity
+class #CLASSNAME# extends Entity
 {
-    const DATABASE = "BusinessDays";
-    private static $tableName = "event";
+    const DATABASE = #DATABASE#;
+    private static $tableName = #TABLE_NAME#;
 
-    private static $tableFields = array('event_id', 'event_name', 'event_year');
+    private static $tableFields = #TABLE_FIELDS#;
 
-    public $event_id;
-    public $event_name;
-    public $event_year;
-
-    public function __construct($event_name = null, $event_year = null, $event_id = null)
+    #PROPERTIES#
+    public function __construct(#CONSTRUCTOR_PARAMETERS#)
     {
-        $this->event_name = $event_name;
-        $this->event_year = $event_year;
-        $this->event_id = $event_id;
+        #CONSTRUCTOR_BODY#
     }
 
     /**
@@ -38,26 +50,19 @@ class TestObject extends Entity
         return parent::process_insert(self::$tableName, self::$tableFields, $this->getObjectValues());
     }
 
-    public function update(array $tableFields = array(), array $tableValues = array(), array $whereClause = null)
+    public function update()
     {
-        if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
         // TODO: Implement update() method.
-        return parent::process_update(self::$tableName, $tableFields, $tableValues, $whereClause);
     }
 
-    public function delete(array $whereClause = null)
+    public function delete()
     {
-        if ($whereClause = null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
-
-        return parent::process_delete(self::$tableName, $whereClause);
         // TODO: Implement delete() method.
     }
 
-    public function select(array $whereClause = null, $selectColumns = "*")
+    public function select()
     {
-        return parent::process_select(self::$tableName, $whereClause, $selectColumns, get_class());
+        // TODO: Implement select() method.
     }
 
     /**
@@ -79,7 +84,7 @@ class TestObject extends Entity
          */
         foreach ($vars as $key => $value)
             array_push($columnValues, $value);
-        var_dump($columnValues);
+
         return $columnValues;
     }
 
@@ -136,29 +141,5 @@ class TestObject extends Entity
     function validate_input()
     {
         // TODO: Implement validate_input() method.
-    }
-
-    /**
-     * @return null
-     */
-    public function getEventId()
-    {
-        return $this->event_id;
-    }
-
-    /**
-     * @return null
-     */
-    public function getEventName()
-    {
-        return $this->event_name;
-    }
-
-    /**
-     * @return null
-     */
-    public function getEventYear()
-    {
-        return $this->event_year;
     }
 }

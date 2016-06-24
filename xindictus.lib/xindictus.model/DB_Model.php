@@ -68,7 +68,7 @@ abstract class DB_Model implements mH\tableQuery
      */
     abstract protected function process_insert($table, array $columnNames, array $columnValues);
 
-    abstract protected function process_update();
-    abstract protected function process_delete();
-    abstract protected function process_select();
+    abstract protected function process_update($table, array $columnNames, array $columnValues, array $updateRow);
+    abstract protected function process_delete($tableName, array $deleteRow);
+    abstract protected function process_select($tableName, array $selectRow, $selectColumns, $className);
 }

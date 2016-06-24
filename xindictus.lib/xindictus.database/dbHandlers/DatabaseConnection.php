@@ -43,7 +43,7 @@ class DatabaseConnection
      * @param $dbAssociate: the database alias
      * @return CustomPDO: return a new CustomPDO - which extends PDO - instance
      */
-    function startConnection($dbAssociate)
+    public static function startConnection($dbAssociate)
     {
         $connection = new CustomPDO($dbAssociate);
         return $connection;
@@ -53,7 +53,7 @@ class DatabaseConnection
      * @param $connection: takes a CustomPDO connection as parameter
      * @return int: Returns the status of the connection
      */
-    public function isConnected(CustomPDO $connection)
+    public static function isConnected(CustomPDO $connection)
     {
         return $connection->isConnected();
     }
@@ -63,7 +63,7 @@ class DatabaseConnection
      * thus closing the chosen connection.
      * @return int
      */
-    function closeConnection(CustomPDO $connection)
+    public static function closeConnection(CustomPDO $connection)
     {
         /**
          * Check whether $connection is already null.
@@ -95,4 +95,5 @@ class DatabaseConnection
             return - 1;
         }
     }
+
 }

@@ -37,20 +37,20 @@ class PrepareStatement
      * @var array|null
      * $columnFields: this array contains the column names of a database table.
      */
-    private $columnNames = array();
+    protected $columnNames = array();
 
     /**
      * @var array|null
      * $columnValues: this array contains the values responding to the $columnNames.
      */
-    private $columnValues = array();
+    protected $columnValues = array();
 
     /**
      * @var array
      * %preparedNamedParameters: this array contains the edited $columnNames
      * in order to be used for the PDO prepared statement.
      */
-    private $preparedNamedParameters = array();
+    protected $preparedNamedParameters = array();
 
     /**
      * PreparedQuery constructor.
@@ -115,4 +115,5 @@ class PrepareStatement
     {
         return array_combine($this->preparedNamedParameters, $this->columnValues);
     }
+    
 }
