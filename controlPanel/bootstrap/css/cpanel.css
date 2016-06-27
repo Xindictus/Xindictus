@@ -72,3 +72,12 @@
     background-color: #ffb84d;
     /*border-radius: 30px;*/
 }
+.action-btn {
+    margin: 15px 5px 0 0;
+}
+.not-active:hover {
+    text-decoration: none;
+}
+.form-key {
+    display: none;
+}

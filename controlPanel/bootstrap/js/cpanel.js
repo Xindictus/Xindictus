@@ -5,7 +5,7 @@
 var dbInfo = [];
 var sessionInfo = [];
 var statLoader = '<img src="img/220.gif">';
-var versionT, dbT, sessionT, tableT, statusT, connectionT;
+var versionT, dbT, sessionT, tableT, statusT, connectionT, dbObjectsT;
 
 //INITIALIZE TOOLTIP'S POP-UPs
 function initTooltip() {
@@ -38,13 +38,11 @@ function compare(a, b) {
     }
 
     // If one's a prefix of the other, the longer one is greater.
-    if (a_components.length > b_components.length) {
+    if (a_components.length > b_components.length)
         return 1;
-    }
 
-    if (a_components.length < b_components.length) {
+    if (a_components.length < b_components.length)
         return -1;
-    }
 
     // Otherwise they are the same.
     return 0;
@@ -113,6 +111,18 @@ function fillStatus(info, prefix) {
     });
 }
 
+function selectAll(obj) {
+    $(obj).siblings('form')
+        .find('input')
+        .prop("checked", true);
+}
+
+function clearAll(obj) {
+    $(obj).siblings('form')
+        .find('input')
+        .prop("checked", false);
+}
+
 function resetInfo() {
     clearInterval(versionT);
     clearInterval(dbT);
@@ -125,6 +135,7 @@ function resetInfo() {
     $('#sessionInfoLoader').fadeIn();
     $('tbody').empty();
     $('#alertPanel').empty().append('<img id="alertLoader" src="img/379.gif">');
+    $('#actionPanel').empty().append('<img id="actionLoader" src="img/379.gif">');
     loadInfo();
 }
 
@@ -204,6 +215,107 @@ function loadInfo() {
                 alerts.find('#alertLoader').remove();
                 alerts.append('<div class="'+className+'" role="alert">'+message+'</div>');
             });
+        });
+    }, tableTimer*(seconds*2));
+
+    var actions = $('#actionPanel');
+
+    dbObjectsT = setTimeout(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'controllers/getDatabaseInfo.php',
+            dataType: 'json',
+            cache: false
+        }).done( function( status ) {
+            var ul = $('<ul></ul>')
+                .addClass('nav nav-tabs');
+            var content = $('<div></div>')
+                .addClass('tab-content');
+
+            var actionBtn = $('<div></div>')
+                .addClass('text-center')
+                .append('<button class="btn btn-primary action-btn" onclick="selectAll(this.parentNode);">Select All</button>')
+                .append('<button class="btn btn-warning action-btn" onclick="clearAll(this.parentNode);">Clear All</button>')
+                .append('<hr>');
+
+            var submitBtn = $('<div></div>')
+                .addClass('text-center')
+                .append('<div class="clearfix"></div>')
+                .append('<hr>')
+                .append('<input class="btn btn-info" type="submit" value="Submit">');
+
+            var pos = 0;
+            $.each(status, function (key, value) {
+
+                if (pos == 0)
+                    ul
+                        .append('<li class="active"><a data-toggle="tab" href="#'+key+'">'+key+'</a></li>');
+                else
+                    ul
+                        .append('<li><a data-toggle="tab" href="#'+key+'">'+key+'</a></li>');
+
+                var tab = $('<div></div>')
+                    .attr('id', key);
+
+                if (pos == 0)
+                    tab
+                        .addClass('tab-pane active');
+                else
+                    tab
+                        .addClass('tab-pane');
+
+                tab
+                    .append(actionBtn.clone());
+
+                pos = 1;
+
+                var dbCheck = $('<form method="POST" action="controllers/test.php"></form>');
+                var leftC = $('<div></div>')
+                    .addClass('col-md-4 text-right');
+                var middleC = $('<div></div>')
+                    .addClass('col-md-4 text-right');
+                var rightC = $('<div></div>')
+                    .addClass('col-md-4 text-right');
+                $.each(value, function (index, tableName) {
+
+                    switch (pos) {
+                        case 1:
+                            leftC
+                                .append(tableName+' <input type="checkbox" name="tableName_'+index+'" value="'+tableName+'"><br>');
+                            break;
+                        case 2:
+                            middleC
+                                .append(tableName+' <input type="checkbox" name="tableName_'+index+'" value="'+tableName+'"><br>');
+                            break;
+                        case 3:
+                            rightC
+                                .append(tableName+' <input type="checkbox" name="tableName_'+index+'" value="'+tableName+'"><br>');
+                            break;
+                    }
+
+                    if (pos < 3)
+                        pos++;
+                    else
+                        pos = 1;
+                });
+                dbCheck
+                    .append('<input type="text" class="form-key" name="formDB" value="'+key+'">')
+                    .append('<input type="text" class="form-key" name="numDB" value="'+value.length+'">')
+                    .append(leftC)
+                    .append(middleC)
+                    .append(rightC)
+                    .append(submitBtn.clone());
+
+                tab
+                    .append(dbCheck);
+
+                content
+                    .append(tab);
+            });
+            actions.find('#actionLoader').remove();
+            actions
+                .append(ul)
+                .append(content);
         });
     }, tableTimer*(seconds*2));
 

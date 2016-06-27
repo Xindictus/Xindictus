@@ -15,11 +15,11 @@
  * limitations under the License.
  *
  *
- * File: .php
+ * File: #CLASSNAME#.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date:
- * Time:
+ * Date: #DATE#
+ * Time: #TIME#
  *
  ******************************************************************************/
 namespace Indictus\Model;
@@ -27,7 +27,7 @@ namespace Indictus\Model;
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
+require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 
 class #CLASSNAME# extends Entity
 {

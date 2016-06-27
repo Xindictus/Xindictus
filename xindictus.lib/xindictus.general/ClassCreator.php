@@ -24,6 +24,10 @@
  ******************************************************************************/
 namespace Indictus\General;
 
+use Indictus\Config\AutoConfigure as AC;
+
+require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
+
 class ClassCreator
 {
     private $newFile;
@@ -38,7 +42,7 @@ class ClassCreator
     private $constructorParam;
     private $constructorBody;
 
-    public function __construct($database = null, $tableName = null, array $tableFields = null, $autoIncrement = false)
+    public function __construct($database = null, $alias = "ALIAS", $tableName = null, array $tableFields = null, $autoIncrement = false)
     {
         $this->database = $database;
         $this->tableName = $tableName;
@@ -49,12 +53,27 @@ class ClassCreator
         $this->className = implode("_", $tableName);
 
         $this->tableFields = $tableFields;
-        $this->newFile = __DIR__ . "/../xindictus.cache/{$this->className}.php";
+
+        $app = new AC\AppConfigure();
+        $debug = $app->getGlobalParam('debug');
+
+        $directory = "";
+
+        if ($debug === "enabled")
+            $directory = __DIR__ . "/../xindictus.cache/{$alias}";
+
+        if ($debug === "setup")
+            $directory = __DIR__ . "/../xindictus.Classes/{$alias}";
+
+        if (!file_exists($directory))
+            mkdir($directory, 0777, true);
+
+        $this->newFile = $directory . "/{$this->className}.php";
         $this->template = __DIR__ . "/../xindictus.model/ObjectTemplate.tpl";
         $this->autoIncrement = $autoIncrement;
     }
 
-    public function constructProperties()
+    private function constructProperties()
     {
         if ($this->tableFields == null)
             return -1;
@@ -67,7 +86,7 @@ class ClassCreator
         return $this->properties;
     }
 
-    public function constructConstParam()
+    private function constructConstParam()
     {
         if ($this->tableFields == null)
             return -1;
@@ -81,14 +100,14 @@ class ClassCreator
             $temp = array_shift($constructorParam);
             array_push($constructorParam, $temp);
         }
-        
+
         $constructorParam = implode(", ", $constructorParam);
 
         $this->constructorParam = rtrim(trim($constructorParam), ',');
         return $this->constructorParam;
     }
 
-    public function constructConstBody()
+    private function constructConstBody()
     {
         if ($this->tableFields == null)
             return -1;
@@ -108,12 +127,17 @@ class ClassCreator
         $this->constructConstParam();
         $this->constructConstBody();
 
+        $app = new AC\AppConfigure();
+        date_default_timezone_set($app->getParam('timezone'));
+
         if(file_exists($this->newFile))
             ftruncate(fopen($this->newFile, 'w'), 0);
 
         if (file_exists($this->template)) {
             $template = file_get_contents($this->template);
             $template = str_replace("#CLASSNAME#", $this->className, $template);
+            $template = str_replace("#DATE#", date("j/n/Y"), $template);
+            $template = str_replace("#TIME#", date("H:i"), $template);
             $template = str_replace("#DATABASE#", "\"{$this->database}\"", $template);
             $template = str_replace("#TABLE_NAME#", "\"$this->tableName\"", $template);
             $template = str_replace("#TABLE_FIELDS#", "array('".implode("','", $this->tableFields)."')", $template);

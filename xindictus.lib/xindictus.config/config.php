@@ -35,6 +35,8 @@ return [
 
     /*
      * If 'enabled', Control Panel is available to be accessed.
+     * If 'setup', Files are created inside xindictus.Classes instead of xindictus.cache.
+     * If 'disabled', Control Panel is inaccessible.
      */
     'debug' => 'enabled',
 
@@ -73,6 +75,8 @@ return [
              */
             'BusinessDays' => 'business_days_database',
             'BD2' => 'business_days_database2',
+            'BugDB' => 'bug_tracking',
+            'hw3' => 'hw3'
         ],
         'charset' => 'utf8',
 //        'collation' => 'utf8_unicode_ci',

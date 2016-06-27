@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../xindictus.lib/xindictus.config/AutoLoader/AutoLoader
 
 $appConf = new AC\AppConfigure;
 
-if ($appConf->getGlobalParam('debug') !== 'enabled') {
+if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam('debug') !== 'setup') {
     header("Location: ../");
     exit();
 }
@@ -27,7 +27,6 @@ if ($appConf->getGlobalParam('debug') !== 'enabled') {
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="bootstrap/css/cpanel.css" type="text/css">
-    <!--<link rel='stylesheet' type='text/css' href='bootstrap/css/style.php' />-->
 </head>
 <body class="noSelect">
 
@@ -36,11 +35,15 @@ if ($appConf->getGlobalParam('debug') !== 'enabled') {
 
         <!--HEADLINES-->
         <div class="row text-center">
-            <h2 class="amazdoom">
-                XindictusLiB
-                <!--<img src="img/724.gif" style="padding-left: 20px; position: absolute;">-->
-                <img src="img/132.gif" style="padding-left: 20px; position: absolute;">
-            </h2>
+            <a href="index.php" class="not-active">
+
+                <h2 class="amazdoom">
+                    XindictusLiB
+                    <!--                <img src="img/724.gif" style="padding-left: 20px; position: absolute;">-->
+                    <img src="img/132.gif" style="padding-left: 20px; position: absolute;">
+                </h2>
+            </a>
+
             <h3 id="frameVersion" class="version"></h3>
 
             <h4 class="selfie">
@@ -117,7 +120,6 @@ if ($appConf->getGlobalParam('debug') !== 'enabled') {
         <div class="clearfix"></div>
         <hr>
 
-        <!--<div class="col-md-8">-->
         <div class="panel panel-warning">
             <div class="panel-heading text-center">
                 <h3 id="alertHead" class="table-desc">
@@ -128,9 +130,7 @@ if ($appConf->getGlobalParam('debug') !== 'enabled') {
                 <img id="alertLoader" src="img/379.gif">
             </div>
         </div>
-        <!--</div>-->
 
-        <!--<div class="col-md-4" style="padding-bottom: 50px">-->
         <div style="padding-bottom: 50px">
             <div class="panel panel-info">
                 <div class="panel-heading text-center">
@@ -139,7 +139,7 @@ if ($appConf->getGlobalParam('debug') !== 'enabled') {
                     </h3>
                 </div>
                 <div id="actionPanel" class="panel-body text-center">
-                    <!--<img id="actionLoader" src="img/379.gif">-->
+                    <img id="actionLoader" src="img/379.gif">
                 </div>
             </div>
         </div>

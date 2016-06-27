@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 class TestObject extends Entity
 {
     const DATABASE = "BusinessDays";
-    private static $tableName = "event";
+    const TABLE_NAME = "event";
 
     private static $tableFields = array('event_id', 'event_name', 'event_year');
 
@@ -35,29 +35,31 @@ class TestObject extends Entity
      */
     public function insert()
     {
-        return parent::process_insert(self::$tableName, self::$tableFields, $this->getObjectValues());
+        return parent::process_insert(self::TABLE_NAME, self::$tableFields, $this->getObjectValues());
     }
 
     public function update(array $tableFields = array(), array $tableValues = array(), array $whereClause = null)
     {
         if ($whereClause == null)
             $whereClause = array_slice(get_object_vars($this), 0, 1);
-        // TODO: Implement update() method.
-        return parent::process_update(self::$tableName, $tableFields, $tableValues, $whereClause);
+
+        return parent::process_update(self::TABLE_NAME, $tableFields, $tableValues, $whereClause);
     }
 
     public function delete(array $whereClause = null)
     {
-        if ($whereClause = null)
+        if ($whereClause == null)
             $whereClause = array_slice(get_object_vars($this), 0, 1);
 
-        return parent::process_delete(self::$tableName, $whereClause);
-        // TODO: Implement delete() method.
+        return parent::process_delete(self::TABLE_NAME, $whereClause);
     }
 
-    public function select(array $whereClause = null, $selectColumns = "*")
+    public function select($selectColumns = "*", array $whereClause = null)
     {
-        return parent::process_select(self::$tableName, $whereClause, $selectColumns, get_class());
+        if ($whereClause == null)
+            $whereClause = array_slice(get_object_vars($this), 0, 1);
+
+        return parent::process_select(self::TABLE_NAME, $whereClause, $selectColumns, get_class());
     }
 
     /**
@@ -89,29 +91,25 @@ class TestObject extends Entity
      */
     public function lastInsertId($column = 0)
     {
-        return parent::lastInsertId(self::$tableName.".".self::$tableFields[$column]);
+        return parent::lastInsertId(self::TABLE_NAME.".".self::$tableFields[$column]);
     }
 
     /**
-     * @param null $database: Database alias.
-     * @param null $table: Table name.
+     * @param $database: Database alias.
+     * @param $table: Table name.
      * @return int: Number of columns.
      */
-    public function columnCount($database = null, $table = null)
+    public function columnCount($database = self::DATABASE, $table = self::TABLE_NAME)
     {
-        if ($table == null)
-            $table = self::$tableName;
-        return parent::columnCount(self::DATABASE, $table);
+        return parent::columnCount($database, $table);
     }
 
     /**
-     * @param null $table: Table name.
+     * @param $table: Table name.
      * @return int: Return number of rows.
      */
-    public function rowCount($table = null)
+    public function rowCount($table = self::TABLE_NAME)
     {
-        if ($table == null)
-            $table = self::$tableName;
         return parent::rowCount($table);
     }
 
@@ -161,4 +159,10 @@ class TestObject extends Entity
     {
         return $this->event_year;
     }
+
+    public function setEventId($id)
+    {
+        $this->event_id = $id;
+    }
 }
+

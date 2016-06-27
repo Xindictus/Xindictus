@@ -63,7 +63,6 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
         return self::$connection;
     }
 
-    //TODO: WHITELIST TABLES AS WELL | OBSOLETE
     /**
      * @param $tableName: The table where new row will be inserted.
      * @param array $columnNames: The column names of the table.
@@ -97,16 +96,16 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
         $bindings = $prepareQuery->getBindings();
 
         /**
-         * Initialize query string and stmt.
+         * Initialize stmt.
          */
-        $insertQuery = "";
         $insertStmt = null;
 
+        /**
+         * Dynamically creating the query.
+         */
+        $insertQuery = "INSERT INTO {$tableName}({$tableFields}) VALUES({$namedParam})";
+
         try {
-            /**
-             * Dynamically creating the query.
-             */
-            $insertQuery = "INSERT INTO {$tableName}({$tableFields}) VALUES({$namedParam})";
 
             /**
              * Prepared Statement and execution.
@@ -124,7 +123,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $insertStmt = null;
+            $insertStmt->closeCursor();
 
         } catch(\PDOException $insertException) {
             $errorString = 'Insert Fail :: ' . $insertQuery . PHP_EOL .
@@ -140,13 +139,13 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Set the errorCode and errorInfo of the last failed query.
              */
-            self::$errorCode = $insertStmt->errorCode();
-            self::$errorInfo = $insertStmt->errorInfo();
+//            self::$errorCode = $insertStmt->errorCode();
+//            self::$errorInfo = $insertStmt->errorInfo();
 
             /**
              * Close stmt
              */
-            $insertStmt = null;
+            $insertStmt->closeCursor();
             return -1;
         }
         return 0;
@@ -156,66 +155,84 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
     {
         // TODO: Implement process_update() method.
 
-        $updateQuery = "UPDATE SET WHERE";
+//        $updateQuery = "UPDATE SET WHERE";
         return 0;
     }
 
-    protected function process_delete($tableName, array $deleteRow)
+    protected function process_delete($tableName, array $deleteRow = null)
     {
-//        /**
-//         * Initialize query string and stmt.
-//         */
-//        $deleteQuery = "";
-//        $deleteStmt = null;
-//
-//        try {
-//            /**
-//             * Dynamically creating the query.
-//             */
-//            $deleteQuery = "DELETE FROM {$tableName} WHERE {$namedParam}";
-//
-//            /**
-//             * Prepared Statement and execution.
-//             */
-//            $deleteStmt = $this->getConnection()->prepare($deleteQuery);
-//            $deleteStmt->execute($bindings);
-//
-//            /**
-//             * Further check if insertion happened by checking
-//             * the number of affected rows.
-//             */
-//            if ($deleteStmt->rowCount() == 0)
-//                throw new \PDOException("AFFECTED ROWS = 0");
-//
-//            /**
-//             * Close stmt
-//             */
-//            $deleteStmt = null;
-//
-//        } catch(\PDOException $deleteException) {
-//            $errorString = 'Insert Fail :: ' . $deleteQuery . PHP_EOL .
-//                'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
-//                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
-//                'Database Message :: '.$deleteException->getMessage();
-//            $category = "DELETE_QUERIES";
-//
-//            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
-//            $errorHandler->createLogs();
-//
-//            /**
-//             * Set the errorCode and errorInfo of the last failed query.
-//             */
+        /**
+         * Initialize query string and stmt.
+         */
+        $deleteQuery = "";
+        $deleteStmt = null;
+        $namedParam = "";
+        $bindings = array();
+
+        /**
+         * Dynamically creating the query.
+         */
+        if ($deleteRow == null) {
+            return -1;
+        }
+
+        if ($deleteRow != null) {
+            $prepareQuery = new PrepareStatementDelete(array_keys($deleteRow), array_values($deleteRow));
+
+            $namedParam = $prepareQuery->getPreparedNamedParameters();
+            $bindings = $prepareQuery->getBindings();
+            $whereClause = $prepareQuery->getWhereClause();
+
+            if ($whereClause != "")
+                $deleteQuery = "DELETE FROM {$tableName} {$whereClause}";
+            else
+                return -1;
+        }
+
+        try {
+
+            /**
+             * Prepared Statement and execution.
+             */
+            $deleteStmt = $this->getConnection()->prepare($deleteQuery);
+            $deleteStmt->execute($bindings);
+
+            /**
+             * Further check if deletion happened by checking
+             * the number of affected rows.
+             */
+            if ($deleteStmt->rowCount() == 0)
+                throw new \PDOException("AFFECTED ROWS = 0");
+
+            /**
+             * Close stmt
+             */
+            $deleteStmt->closeCursor();
+
+        } catch(\PDOException $deleteException) {
+            $errorString = 'Delete Failure :: ' . $deleteQuery . PHP_EOL .
+                'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
+                'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
+                'Database Message :: '.$deleteException->getMessage();
+            $category = "DELETE_QUERIES";
+
+            $errorHandler = new Errno\LogErrorHandler($errorString, $category);
+            $errorHandler->createLogs();
+
+            /**
+             * Set the errorCode and errorInfo of the last failed query.
+             */
 //            self::$errorCode = $deleteStmt->errorCode();
 //            self::$errorInfo = $deleteStmt->errorInfo();
-//
-//            /**
-//             * Close stmt
-//             */
-//            $deleteStmt = null;
-//            return -1;
-//        }
+
+            /**
+             * Close stmt
+             */
+            $deleteStmt->closeCursor();
+            return -1;
+        }
+
         return 0;
-        // TODO: Implement process_delete() method.
     }
 
     /**
@@ -227,6 +244,9 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
      */
     protected function process_select($tableName, array $selectRow = null, $selectColumns = "*", $className = "")
     {
+        /**
+         * Initialize variables.
+         */
         $selectQuery = "";
         $selectStmt = null;
         $namedParam = "";
@@ -266,11 +286,11 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $selectStmt = null;
+            $selectStmt->closeCursor();
             return $result;
 
         } catch(\PDOException $selectException) {
-            $errorString = 'Insert Fail :: ' . $selectQuery . PHP_EOL .
+            $errorString = 'Select Failure :: ' . $selectQuery . PHP_EOL .
                 'Named parameters :: ('. $namedParam . ')' . PHP_EOL .
                 'Values given :: ('. implode(",", $bindings) . ')' . PHP_EOL .
                 'Database Message :: '.$selectException->getMessage();
@@ -288,7 +308,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $selectStmt = null;
+            $selectStmt->closeCursor();
             return -1;
         }
     }
@@ -300,16 +320,20 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
      */
     public function columnCount($database, $table)
     {
-        //TODO: POSSIBLE GET ACCESS RETURN TO VERIFY IF EXISTS
         $dbAC = new AC\DBConfigure;
         $database = $dbAC->getAccess($database);
         //TODO: PREPARED STATEMENT, ERROR HANDLING
-        $query = $this->getConnection()->query("
+
+        if ($database != 1) {
+            $query = $this->getConnection()->query("
             SELECT COUNT(*) as columnCount 
             FROM information_schema.columns 
             WHERE TABLE_SCHEMA = '{$database['database']}'
             AND TABLE_NAME = '{$table}'")->fetch();
-        return $query['columnCount'];
+            return $query['columnCount'];
+        }
+
+        return -1;
     }
 
     /**
@@ -340,7 +364,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             LIMIT 1")->fetch();
         return $query['lastID'];
     }
-
+    //TODO: ERROR CODE/INFO -> ANALYSE IMPORTANCE
     /**
      * @param int $errorCode
      *

@@ -29,7 +29,7 @@ include_once(__DIR__ . "/xindictus.lib/xindictus.config/AutoLoader/AutoLoader.ph
 
 $appConf = new AC\AppConfigure;
 
-if($appConf->getGlobalParam('debug') === 'enabled')
+if($appConf->getGlobalParam('debug') === 'enabled' || $appConf->getGlobalParam('debug') === 'setup')
     header("Location: controlPanel/");
 else
     header("Location: ../");
