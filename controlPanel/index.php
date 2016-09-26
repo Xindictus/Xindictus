@@ -40,7 +40,7 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
                 <h2 class="amazdoom">
                     XindictusLiB
                     <!--                <img src="img/724.gif" style="padding-left: 20px; position: absolute;">-->
-                    <img src="img/132.gif" style="padding-left: 20px; position: absolute;">
+                    <img class="xin-logo" src="img/132.gif">
                 </h2>
             </a>
 
@@ -49,8 +49,10 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
             <h4 class="selfie">
                 Control Panel and Configuration
             </h4>
+            
             <hr>
-            <button id="refreshInfo" class="btn btn-default" style="margin-bottom: 10px;" disabled>
+            
+            <button id="refreshInfo" class="btn btn-default" disabled>
                 <span class="glyphicon glyphicon-refresh"></span> Refresh
             </button>
 
@@ -138,9 +140,32 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
                         Action Panel <span class="glyphicon glyphicon-tasks"></span>
                     </h3>
                 </div>
+                <div id="actionInfo" class="panel-body text-center">
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">Directory Files (cache folder)</button>
+
+                </div>
                 <div id="actionPanel" class="panel-body text-center">
                     <img id="actionLoader" src="img/379.gif">
                 </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Directory Files</h4>
+                    </div>
+                    <div id="modalB" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 

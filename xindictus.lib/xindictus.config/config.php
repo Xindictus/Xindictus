@@ -76,7 +76,7 @@ return [
             'BusinessDays' => 'business_days_database',
             'BD2' => 'business_days_database2',
             'BugDB' => 'bug_tracking',
-            'hw3' => 'hw3'
+            'Aaa' => 'hw3'
         ],
         'charset' => 'utf8',
 //        'collation' => 'utf8_unicode_ci',

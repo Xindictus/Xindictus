@@ -136,6 +136,7 @@ function resetInfo() {
     $('tbody').empty();
     $('#alertPanel').empty().append('<img id="alertLoader" src="img/379.gif">');
     $('#actionPanel').empty().append('<img id="actionLoader" src="img/379.gif">');
+    $('#modalB').empty();
     loadInfo();
 }
 
@@ -269,7 +270,7 @@ function loadInfo() {
 
                 pos = 1;
 
-                var dbCheck = $('<form method="POST" action="controllers/test.php"></form>');
+                var dbCheck = $('<form method="POST" action="controllers/createClass.php"></form>');
                 var leftC = $('<div></div>')
                     .addClass('col-md-4 text-right');
                 var middleC = $('<div></div>')
@@ -323,7 +324,64 @@ function loadInfo() {
     setTimeout(function() {
         $('#refreshInfo').removeAttr('disabled');
     }, tableTimer*(seconds*2));
+
+    $.ajax({
+        type: 'GET',
+        url: 'controllers/dirFiles.php',
+        dataType: 'json',
+        cache: false
+    }).done( function ( obj ) {
+        // var keys = Object.keys(obj);
+        var link = $('<a></a>')
+            .addClass('link-pointer')
+            .attr('data-toggle', 'collapse')
+            .attr('data-parent', '#myModal');
+
+        var span = $('<span></span>')
+            .addClass('glyphicon glyphicon-chevron-down');
+
+        var collapse = $('<div></div>')
+            .addClass('collapse');
+        var clearfix = $('<div></div>')
+            .addClass('clearfix');
+        var content = $('<div></div>');
+        
+        $.each(obj, function (key, array) {
+            content
+                .append(
+                    link
+                        .clone()
+                        .prop('id', key+'L')
+                        .attr('data-target', '#'+key+'Modal')
+                        .append(span.clone())
+                        .append(key));
+
+            var htmlArr = $('<p></p>');
+            $.each(array, function (arrK, arrV) {
+                htmlArr
+                    .append((parseInt(arrK)+1) + ". " + arrV + "<br>");
+            });
+
+            content
+                .append(
+                    collapse
+                        .clone()
+                        .prop('id', key+'Modal')
+                        .html(htmlArr)
+                );
+            content
+                .append(clearfix.clone());
+        });
+        // console.log(obj[keys[0]]);
+        $('#modalB')
+            .append(content);
+    });
 }
+
+// function toggleGlyph(obj) {
+//     $(obj).toggleClass("glyphicon-chevron-down");
+//     $(obj).toggleClass("glyphicon-chevron-up");
+// }
 
 $(document).ready(function () {
     $('#refreshInfo').on('click', function () {

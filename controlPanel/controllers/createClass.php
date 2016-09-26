@@ -15,26 +15,81 @@
  * limitations under the License.
  *
  *
- * File: test.php
+ * File: createClass.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 24/6/2016
- * Time: 22:13
+ * Date: 28/6/2016
+ * Time: 16:59
  *
  ******************************************************************************/
-
-use Indictus\Database\dbHandlers as dbHandlers;
 use Indictus\Config\AutoConfigure as AC;
+use Indictus\Database\dbHandlers as dbHandlers;
 use Indictus\General as Gn;
 
 /**
  * Require AutoLoader
  */
 require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
+?>
 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 
-$form_post_success = 0;
+        <meta name="description" content="The control panel of Xindictus PHP framework listing the basic configuration done by the user with some alerts about connectivity to database and other services.">
+        <meta name="author" content="Konstantinos Vytiniotis">
 
+        <link rel="icon" href="../../../favicon.ico">
+        <title>Xindictus CP - ClassCreation</title>
+
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="../bootstrap/css/classCreation.css" type="text/css">
+
+    </head>
+    <body>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="text-center">
+                <h3 class="titleFont">
+                    Creating Classes from chosen database's tables
+                </h3>
+            </div>
+
+            <hr>
+
+            <div class="progress">
+                <div id="progressDiv" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                    <span id="progressText">0%</span>
+                </div>
+            </div>
+
+            <textarea id="consoleUpdate" rows="5" readonly></textarea>
+
+            <div class="clearfix"></div>
+
+            <hr>
+
+            <div class="text-center">
+                <button class="btn btn-success" onclick="returnCP();">
+                    Return to Control Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/classCreation.js"></script>
+
+    </html>
+
+<?php
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 
     $formDB_error = 0;
@@ -66,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     if (count($tableName) == 0)
         $tableName_error = 1;
 
-    echo $formDB_error.$numDB_error.$tableName_error;
     if ($formDB_error != 1 && $numDB_error != 1 && $tableName_error != 1) {
 
         $acDB = new AC\DBConfigure();
@@ -74,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $key = array_search($formDB, $databases);
         $connection = dbHandlers\DatabaseConnection::startConnection($key);
         $autoIncrement = false;
+        $update = 100 / $numDB;
 
         if (dbHandlers\DatabaseConnection::isConnected($connection)) {
             foreach ($tableName as $table) {
@@ -98,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                         $autoIncrement = true;
 
                     $stmt = null;
-
+                    //TODO: FINISH TEMPLATING
                     $cC = new Gn\ClassCreator($formDB, $key, $table, $fields, $autoIncrement);
                     $cC->constructFile();
 
@@ -106,15 +161,14 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                     echo $exception->getMessage();
                     $stmt = null;
                 }
+
+                echo "<script>updateProgress('" . $update . "', '" . $table . "');</script>";
             }
         }
 
         $connection = dbHandlers\DatabaseConnection::closeConnection($connection);
-        $form_post_success = 1;
     }
-
-//    $directory = __DIR__ . "/../../xindictus.lib/xindictus.model";
-//    $scanned_directory = array_diff(scandir($directory), array('..', '.'));
-//
-//    var_dump($scanned_directory);
+} else {
+    header("Location: ../");
+    exit();
 }

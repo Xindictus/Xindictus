@@ -81,3 +81,13 @@
 .form-key {
     display: none;
 }
+.xin-logo {
+    padding-left: 20px;
+    position: absolute;
+}
+#refreshInfo {
+    margin-bottom: 10px;
+}
+.link-pointer {
+    cursor: pointer;
+}

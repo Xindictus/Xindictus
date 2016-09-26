@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: FFFTusj;
+    src: url("../fonts/FFF Tusj.ttf");
+}
+
+textarea {
+    background-color: black;
+    color: #68ff00;
+}
+
+.titleFont {
+    font-family: FFFTusj, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 250%;
+}
+
+#consoleUpdate {
+    width: 50%;
+    resize: none;
+    text-align: left;
+}
