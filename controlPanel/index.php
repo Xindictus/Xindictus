@@ -11,7 +11,7 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
     header("Location: ../");
     exit();
 }
-
+/**/
 Gen\CacheBlocker::cacheBlock();
 
 ?>
