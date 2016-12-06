@@ -70,7 +70,7 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
      * @return int: The return type.
      *
      * This method processes the insert of a row in a table.
-     * Returns 0 if insertion was successful or 1 if insertion failed.
+     * Returns 0 if insertion was successful or -1 if insertion failed.
      */
     protected function process_insert($tableName, array $columnNames, array $columnValues)
     {
@@ -145,7 +145,9 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $insertStmt->closeCursor();
+            if ($insertStmt != null)
+                $insertStmt->closeCursor();
+
             return -1;
         }
         return 0;
@@ -228,7 +230,9 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $deleteStmt->closeCursor();
+            if ($deleteStmt != null)
+                $deleteStmt->closeCursor();
+
             return -1;
         }
 
@@ -308,7 +312,9 @@ abstract class DB_Table extends dbModel\DB_Model implements mH\tableQuery
             /**
              * Close stmt
              */
-            $selectStmt->closeCursor();
+            if ($selectStmt != null)
+                $selectStmt->closeCursor();
+            
             return -1;
         }
     }

@@ -47,22 +47,31 @@ class #CLASSNAME# extends Entity
      */
     public function insert()
     {
-        return parent::process_insert(self::$tableName, self::$tableFields, $this->getObjectValues());
+        return parent::process_insert(self::TABLE_NAME, self::$tableFields, $this->getObjectValues());
     }
 
     public function update()
     {
-        // TODO: Implement update() method.
+        if ($whereClause == null)
+            $whereClause = array_slice(get_object_vars($this), 0, 1);
+
+        return parent::process_update(self::TABLE_NAME, $tableFields, $tableValues, $whereClause);
     }
 
     public function delete()
     {
-        // TODO: Implement delete() method.
+        if ($whereClause == null)
+            $whereClause = array_slice(get_object_vars($this), 0, 1);
+
+        return parent::process_delete(self::TABLE_NAME, $whereClause);
     }
 
     public function select()
     {
-        // TODO: Implement select() method.
+        if ($whereClause == null)
+            $whereClause = array_slice(get_object_vars($this), 0, 1);
+
+        return parent::process_select(self::TABLE_NAME, $whereClause, $selectColumns, get_class());
     }
 
     /**
@@ -142,4 +151,6 @@ class #CLASSNAME# extends Entity
     {
         // TODO: Implement validate_input() method.
     }
+
+    #SETTERS##GETTERS#
 }

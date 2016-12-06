@@ -23,7 +23,7 @@
  *
  ******************************************************************************/
 
-use Indictus\Database\dbHandlers as dbHandlers;
+use Indictus\Database\dbHandlers;
 use Indictus\Config\AutoConfigure as AC;
 
 require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 
     $config = new AC\DBConfigure;
 
-    $db = new dbHandlers\DatabaseConnection;
-
     foreach ($config->getParam('database') as $key => $value){
-        $connection = $db->startConnection($key);
-        if ($db->isConnected($connection)) {
+
+        $connection = dbHandlers\DatabaseConnection::startConnection($key);
+
+        if ($connection->isConnected($connection) != -1) {
 
             $tableNamesQuery = "SELECT table_name FROM information_schema.tables WHERE table_schema='{$value}'";
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
             $result = $tableStmt->fetchAll(PDO::FETCH_COLUMN);
 
             $data[$value] = $result;
-            $db->closeConnection($connection);
+            dbHandlers\DatabaseConnection::closeConnection($connection);
         };
     }
 

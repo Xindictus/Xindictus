@@ -25,7 +25,6 @@
 namespace Indictus\Model;
 
 use Indictus\Database\dbHandlers as dbHandlers;
-use Indictus\Database\moreHandlers as mH;
 
 /**
  * Require AutoLoader
@@ -38,7 +37,7 @@ require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
  *
  * The abstract layer containing the database model for the basic queries.
  */
-abstract class DB_Model implements mH\tableQuery
+abstract class DB_Model
 {
     /**
      * @var $connection: contains the connection for object's queries.
@@ -67,8 +66,8 @@ abstract class DB_Model implements mH\tableQuery
      * @return mixed
      */
     abstract protected function process_insert($table, array $columnNames, array $columnValues);
-
     abstract protected function process_update($table, array $columnNames, array $columnValues, array $updateRow);
     abstract protected function process_delete($tableName, array $deleteRow);
     abstract protected function process_select($tableName, array $selectRow, $selectColumns, $className);
+    // TODO: Implement Class for Abstract Queries
 }

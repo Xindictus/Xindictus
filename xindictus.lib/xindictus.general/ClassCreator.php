@@ -27,7 +27,7 @@ namespace Indictus\General;
 use Indictus\Config\AutoConfigure as AC;
 
 require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
-
+// TODO: CHANGE CONSTRUCTOR
 class ClassCreator
 {
     private $newFile;
@@ -41,6 +41,8 @@ class ClassCreator
     private $properties;
     private $constructorParam;
     private $constructorBody;
+    private $setters;
+    private $getters;
 
     public function __construct($database = null, $alias = "ALIAS", $tableName = null, array $tableFields = null, $autoIncrement = false)
     {
@@ -51,6 +53,7 @@ class ClassCreator
         foreach ($tableName as &$part)
             $part = ucfirst($part);
         $this->className = implode("_", $tableName);
+        unset($part);
 
         $this->tableFields = $tableFields;
 
@@ -121,11 +124,66 @@ class ClassCreator
         return $this->constructorBody;
     }
 
+    private function constructSetters()
+    {
+        if ($this->tableFields == null)
+            return -1;
+
+        $setters = "";
+
+        foreach ($this->tableFields as $field) {
+
+            $setterName = explode('_', $field);
+            foreach ($setterName as &$part) {
+                $part = ucfirst($part);
+            }
+            $setterName = implode("", $setterName);
+            unset($part);
+
+            $function = "public function set{$setterName}($" . "{$field})" .
+                PHP_EOL . "\t{" . PHP_EOL . "\t\t" .
+                '$this->' . "{$field} = $" . "{$field};" . PHP_EOL .
+                "\t\t" . 'return $this;' . PHP_EOL . "\t}";
+
+            $setters .= $function . PHP_EOL . PHP_EOL . "\t";
+        }
+        $this->setters = $setters;
+        return $this->setters;
+    }
+
+    private function constructGetters()
+    {
+        if ($this->tableFields == null)
+            return -1;
+
+        $getters = "";
+
+        foreach ($this->tableFields as $field) {
+
+            $getterName = explode('_', $field);
+            foreach ($getterName as &$part) {
+                $part = ucfirst($part);
+            }
+            $getterName = implode("", $getterName);
+            unset($part);
+
+            $function = "public function get{$getterName}()" .
+                PHP_EOL . "\t{" . PHP_EOL . "\t\t" .
+                'return $this->' . "{$field};" . PHP_EOL . "\t}";
+
+            $getters .= $function . PHP_EOL . PHP_EOL . "\t";
+        }
+        $this->getters = $getters;
+        return $this->getters;
+    }
+
     public function constructFile()
     {
         $this->constructProperties();
         $this->constructConstParam();
         $this->constructConstBody();
+        $this->constructSetters();
+        $this->constructGetters();
 
         $app = new AC\AppConfigure();
         date_default_timezone_set($app->getParam('timezone'));
@@ -144,6 +202,8 @@ class ClassCreator
             $template = str_replace("#PROPERTIES#", $this->properties, $template);
             $template = str_replace("#CONSTRUCTOR_PARAMETERS#", $this->constructorParam, $template);
             $template = str_replace("#CONSTRUCTOR_BODY#", $this->constructorBody, $template);
+            $template = str_replace("#SETTERS#", $this->setters, $template);
+            $template = str_replace("#GETTERS#", $this->getters, $template);
 
             $handle = fopen($this->newFile, 'w') or die('Cannot open file:  '.$this->newFile);
 

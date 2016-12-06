@@ -1,6 +1,7 @@
 .idea/**
 test/**
 xindictus.lib/xindictus.cache/**
+panorama.business_days.lib/**
 *.test.php
 *.log
 *.sql

@@ -44,7 +44,7 @@ class CustomPDO extends \PDO
     /**
      * @var int $isConnected: 1 for connected, 0 for not connected
      */
-    private $isConnected = 0;
+    private $isConnected = -1;
 
     /**
      * Overriding PDO constructor
@@ -110,7 +110,7 @@ class CustomPDO extends \PDO
                 /**
                  * Update $isConnected value.
                  */
-                $this->isConnected = 1;
+                $this->isConnected = 0;
             } else {
                 $errorString = 'PDO CONSTRUCTOR ERROR'.PHP_EOL.
                     'Database Association given :: "'.$dbAssociate.'"';

@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $autoIncrement = false;
         $update = 100 / $numDB;
 
-        if (dbHandlers\DatabaseConnection::isConnected($connection)) {
+        if ($connection->isConnected() != -1) {
             foreach ($tableName as $table) {
                 $fields = array();
 

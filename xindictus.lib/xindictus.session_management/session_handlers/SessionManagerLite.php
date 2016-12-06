@@ -22,6 +22,8 @@ class SessionManagerLite extends SessionKeyCreator implements SessionManager{
     }
 
     public function startSession(){
+        //$timeout
+        ini_set('session.gc_maxlifetime', 1440);
         session_name("GO!PanoramaSESSION");
         session_start();
         session_regenerate_id(true);

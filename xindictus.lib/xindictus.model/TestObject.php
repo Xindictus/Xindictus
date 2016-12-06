@@ -19,15 +19,16 @@ class TestObject extends Entity
 
     private static $tableFields = array('event_id', 'event_name', 'event_year');
 
-    public $event_id;
-    public $event_name;
-    public $event_year;
+    private $event_id;
+    private $event_name;
+    private $event_year;
 
     public function __construct($event_name = null, $event_year = null, $event_id = null)
     {
         $this->event_name = $event_name;
         $this->event_year = $event_year;
         $this->event_id = $event_id;
+
     }
 
     /**
@@ -41,7 +42,7 @@ class TestObject extends Entity
     public function update(array $tableFields = array(), array $tableValues = array(), array $whereClause = null)
     {
         if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+            $whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
 
         return parent::process_update(self::TABLE_NAME, $tableFields, $tableValues, $whereClause);
     }
@@ -49,7 +50,7 @@ class TestObject extends Entity
     public function delete(array $whereClause = null)
     {
         if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+            $whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
 
         return parent::process_delete(self::TABLE_NAME, $whereClause);
     }
@@ -57,7 +58,7 @@ class TestObject extends Entity
     public function select($selectColumns = "*", array $whereClause = null)
     {
         if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+            $whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
 
         return parent::process_select(self::TABLE_NAME, $whereClause, $selectColumns, get_class());
     }
@@ -74,14 +75,18 @@ class TestObject extends Entity
         /**
          * Get object's properties' values.
          */
+        $keys = array_keys(array_slice(get_class_vars(__CLASS__), 0, -4));
 
-        $vars = get_object_vars($this);
+        $vars = array();
+        foreach ($keys as $var)
+            $vars[$var] = $this->{$var};
+
         /**
          * Iterate $vars and add the values to a new array $columnValues
          */
         foreach ($vars as $key => $value)
             array_push($columnValues, $value);
-        var_dump($columnValues);
+
         return $columnValues;
     }
 
@@ -163,6 +168,29 @@ class TestObject extends Entity
     public function setEventId($id)
     {
         $this->event_id = $id;
+        return $this;
     }
+
+    /**
+     * @param $event_name
+     * @return $this
+     */
+    public function setEventName($event_name)
+    {
+        $this->event_name = $event_name;
+        return $this;
+    }
+
+    /**
+     * @param $event_year
+     * @return $this
+     */
+    public function setEventYear($event_year)
+    {
+        $this->event_year = $event_year;
+        return $this;
+    }
+
+
 }
 

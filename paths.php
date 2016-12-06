@@ -62,4 +62,7 @@ return [
 
     'Privilege' => 'xindictus.privilege_handlers',
 
+    'Cache' => 'xindictus.cache',
+
+    'BugDB' => 'BugDB'
 ];

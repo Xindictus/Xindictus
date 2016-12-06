@@ -207,7 +207,7 @@ function loadInfo() {
                 var className = "alert alert-success";
                 var message = "Connection with database \"" + key +
                     "\" has been established.";
-                if(value == 0) {
+                if (value != 0) {
                     className = "alert alert-danger";
                     message = "Connection with database \"" + key +
                         "\" could not be established.<br>" +
@@ -228,6 +228,7 @@ function loadInfo() {
             dataType: 'json',
             cache: false
         }).done( function( status ) {
+            console.log(status);
             var ul = $('<ul></ul>')
                 .addClass('nav nav-tabs');
             var content = $('<div></div>')
@@ -338,20 +339,24 @@ function loadInfo() {
             .attr('data-parent', '#myModal');
 
         var span = $('<span></span>')
-            .addClass('glyphicon glyphicon-chevron-down');
+            .addClass('glyphicon glyphicon-chevron-right');
 
         var collapse = $('<div></div>')
             .addClass('collapse');
         var clearfix = $('<div></div>')
             .addClass('clearfix');
         var content = $('<div></div>');
-        
+
         $.each(obj, function (key, array) {
+            span
+                .prop('id', key+'Span');
+
             content
                 .append(
                     link
                         .clone()
-                        .prop('id', key+'L')
+                        .prop('id', key+'Link')
+                        .prop('value', '0')
                         .attr('data-target', '#'+key+'Modal')
                         .append(span.clone())
                         .append(key));
@@ -375,6 +380,19 @@ function loadInfo() {
         // console.log(obj[keys[0]]);
         $('#modalB')
             .append(content);
+
+        $('.link-pointer').on('click', function () {
+            var spanId = $(this).prop('id').slice(0, -4) + 'Span';
+            var spanEl = $('#'+spanId);
+
+            if ($(this).prop('value') == '0') {
+                spanEl.removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+                $(this).prop('value', '1');
+            } else {
+                spanEl.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+                $(this).prop('value', '0');
+            }
+        });
     });
 }
 
@@ -388,4 +406,5 @@ $(document).ready(function () {
         resetInfo();
     });
     loadInfo();
+
 });

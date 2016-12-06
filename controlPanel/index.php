@@ -1,6 +1,7 @@
 <?php
 
 use Indictus\Config\AutoConfigure as AC;
+use Indictus\General as Gen;
 
 require_once(__DIR__ . "/../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
 
@@ -10,6 +11,8 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
     header("Location: ../");
     exit();
 }
+
+Gen\CacheBlocker::cacheBlock();
 
 ?>
 <!DOCTYPE html>
@@ -49,9 +52,9 @@ if ($appConf->getGlobalParam('debug') !== 'enabled' && $appConf->getGlobalParam(
             <h4 class="selfie">
                 Control Panel and Configuration
             </h4>
-            
+
             <hr>
-            
+
             <button id="refreshInfo" class="btn btn-default" disabled>
                 <span class="glyphicon glyphicon-refresh"></span> Refresh
             </button>
