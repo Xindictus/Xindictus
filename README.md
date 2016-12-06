@@ -1,4 +1,4 @@
-# Xindictus - A micro-PHP framework created for personal use/projects.
+# Xindictus - A micro-PHP framework created for personal use/projects
 - - -
 Main purpose of creation was:
 * to reduce the creation of CRUD methods which was time-consuming
