@@ -1,5 +1,5 @@
-# Xindictus - A micro-PHP framework created for personal use/projects
-- - -
+# Xindictus - A micro-framework in PHP
+
 Main purpose of creation was:
 * to reduce the creation of CRUD methods which was time-consuming
 * to automate CRUD methods as much as possible
@@ -15,8 +15,8 @@ Features:
 * Database Abstraction Layer and Database Handlers
 * Error Logger
 * Session management (under construction)
-* Validation (under construction)
+* Validation (will be implemented soon)
 * Basic Control Panel
-* MVC (N/A)
+* MVC (will be implemented soon)
 
 > Documentation not yet available
