@@ -23,6 +23,10 @@
  *
  ******************************************************************************/
 
+use Indictus\Config\AutoConfigure;
+
+require_once __DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php";
+
 /**
  * @param $dir
  * @return array
@@ -30,7 +34,7 @@
 function dirToArray($dir) {
 
     $result = array();
-
+    //TODO: HEADERS TO EVERY CONTROLLER
     $cdir = scandir($dir);
     foreach ($cdir as $key => $value)
     {
@@ -50,6 +54,13 @@ function dirToArray($dir) {
     return $result;
 }
 
-$directory = __DIR__ . "/../../xindictus.lib/xindictus.cache";
+$directory = '';
+
+$app = new AutoConfigure\AppConfigure();
+
+if ($app->getGlobalParam('debug') === 'enabled')
+    $directory = __DIR__ . "/../../xindictus.lib/xindictus.cache";
+else if ($app->getGlobalParam('debug') === 'setup')
+    $directory = $app->getGlobalParam('models');
 
 echo json_encode(dirToArray($directory));

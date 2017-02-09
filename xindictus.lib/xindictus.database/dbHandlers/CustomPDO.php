@@ -30,7 +30,7 @@ use Indictus\Exception\ErHandlers as Errno;
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../../autoload.php";
 
 /**
  * Class CustomPDO
@@ -42,15 +42,16 @@ require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 class CustomPDO extends \PDO
 {
     /**
-     * @var int $isConnected: 1 for connected, 0 for not connected
+     * @var int $isConnected : 1 for connected, 0 for not connected
      */
     private $isConnected = -1;
 
     /**
-     * Overriding PDO constructor
-     * @param $dbAssociate(REQUIRED). It is used to define which database to use.
+     * CustomPDO constructor.
+     * @param $dbAssociate
+     * @throws \PDOException
      */
-    function __construct($dbAssociate)
+    public function __construct($dbAssociate)
     {
         /**
          * Initialize $category with UNMATCHED,
@@ -61,7 +62,7 @@ class CustomPDO extends \PDO
         /**
          * Parse the database configurations.
          */
-        $config = new AC\DBConfigure;
+        $config = new AC\DBConfigure();
 
         /**
          * Set PHP timezone.
@@ -93,9 +94,10 @@ class CustomPDO extends \PDO
                  * set the attributes of errors and
                  * emulated prepared statements.
                  */
-                parent::__construct("{$configArray['driver']}:host={$configArray['host']};
-                port={$configArray['port']};dbname={$configArray['database']};",
-                    $configArray['username'],$configArray['password'], $flags);
+                if (count($configArray) !== 0)
+                    parent::__construct("{$configArray['driver']}:host={$configArray['host']};
+                        port={$configArray['port']};dbname={$configArray['database']};",
+                        $configArray['username'], $configArray['password'], $flags);
 
                 /**
                  * Set CHARACTER SET
@@ -111,20 +113,21 @@ class CustomPDO extends \PDO
                  * Update $isConnected value.
                  */
                 $this->isConnected = 0;
+
             } else {
-                $errorString = 'PDO CONSTRUCTOR ERROR'.PHP_EOL.
-                    'Database Association given :: "'.$dbAssociate.'"';
+                $errorString = 'PDO CONSTRUCTOR ERROR' . PHP_EOL .
+                    'Database Association given :: "' . $dbAssociate . '"';
                 $category = "FalseDatabaseParameters";
-                throw new \Exception($errorString);
+                throw new \PDOException($errorString);
             }
-        } catch (\Exception $customPDOException) {
+        } catch (\PDOException $customPDOException) {
 
             /**
-             * @param $error_string: Finalizing it.
+             * @param $error_string : Finalizing it.
              * Initialization and call of log error handler.
              */
             if (!isset($errorString) && empty($errorString)) {
-                $errorString = 'UNABLE TO CONNECT TO DATABASE'.PHP_EOL.
+                $errorString = 'UNABLE TO CONNECT TO DATABASE' . PHP_EOL .
                     $customPDOException->getMessage();
                 $category = "DatabaseConnection";
             }

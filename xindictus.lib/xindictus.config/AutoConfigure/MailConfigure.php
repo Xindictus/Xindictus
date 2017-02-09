@@ -15,11 +15,11 @@
  * limitations under the License.
  *
  *
- * File: getConnectionStatus.php
+ * File: MailConfigure.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 20/4/2016
- * Time: 08:41
+ * Date: 18/12/2016
+ * Time: 13:32
  *
  ******************************************************************************/
 namespace Indictus\Config\AutoConfigure;
@@ -30,23 +30,16 @@ namespace Indictus\Config\AutoConfigure;
 require_once __DIR__ . "/../../autoload.php";
 
 /**
- * Class AppConfigure
+ * Class MailConfigure
  * @package Indictus\Config\AutoConfigure
- *
- * This class loads the configuration properties for the Application.
  */
-class AppConfigure extends Configure
+class MailConfigure extends Configure
 {
     /**
-     * @var $configArray : This array consists of the App variables
+     * @var $configArray : This array consists of the Mail variables
      * taken right from the configuration file.
      */
     protected $configArray;
-
-    /**
-     * @var $phpVer : The PHP version.
-     */
-    protected $phpVer;
 
     /**
      * AppConfigure constructor.
@@ -55,8 +48,7 @@ class AppConfigure extends Configure
     {
         parent::__construct();
 
-        $this->configArray = $this->configFile['App'];
-        $this->phpVer = $this->configFile['PHP']['version'];
+        $this->configArray = $this->configFile['Mail'];
     }
 
     /**
@@ -74,13 +66,4 @@ class AppConfigure extends Configure
 
         return -1;
     }
-
-    /**
-     * @return: Returns the PHP version.
-     */
-    public function getPhpVer()
-    {
-        return $this->phpVer;
-    }
-
 }

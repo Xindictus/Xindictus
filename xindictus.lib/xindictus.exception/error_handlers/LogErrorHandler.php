@@ -29,7 +29,7 @@ use Indictus\Config\AutoConfigure as AC;
 /**
  * Require Autoloader
  */
-require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../../autoload.php";
 
 /**
  * Class LogErrorHandler
@@ -42,19 +42,19 @@ class LogErrorHandler
 {
     //TODO: POSSIBLY DIVIDE FOLDERS MORE
     /**
-     * @param string $errorString: The string created to be saved in the logs.
+     * @param string $errorString : The string created to be saved in the logs.
      */
     private $errorString;
 
     /**
-     * @param string $log_fileName: The file name and the location it will be saved.
+     * @param string $log_fileName : The file name and the location it will be saved.
      */
     private $logFileName;
 
     /**
      * LogErrorHandler constructor.
-     * @param $exceptionMessage: The message caught from the exception.
-     * @param $codeSource: Depending where the exception came from, it will be relatively categorized.
+     * @param $exceptionMessage : The message caught from the exception.
+     * @param $codeSource : Depending where the exception came from, it will be relatively categorized.
      */
     function __construct($exceptionMessage, $codeSource)
     {
@@ -65,30 +65,30 @@ class LogErrorHandler
     }
 
     /**
-     * @param $mainError: The error caught from an exception.
+     * @param $mainError : The error caught from an exception.
      * @return string: Returns the final string that will be logged.
      */
     private function createErrorLog($mainError)
     {
-        $errStr = 'User: '. $_SERVER['REMOTE_ADDR'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL.
-            $mainError.PHP_EOL.
-            str_repeat ('---------------------------------------', 2).PHP_EOL;
+        $errStr = 'User: ' . $_SERVER['REMOTE_ADDR'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL .
+            $mainError . PHP_EOL .
+            str_repeat('«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»«»', 2) . PHP_EOL;
         return $errStr;
     }
 
     /**
-     * @param $category: The category is part of the file name, in order to group error messages accordingly.
+     * @param $category : The category is part of the file name, in order to group error messages accordingly.
      * @return string: Returns the file location and filename along with the date the error occurred.
      */
     private function createLogFileName($category)
-    {
-        if (!file_exists(__DIR__ . '/error_logs/Queries/'.$category))
-            mkdir(__DIR__ . '/error_logs/Queries/'.$category, 0777, true);
+    {//TODO: CHANGE FOLDER CREATION
+        if (!file_exists(__DIR__ . '/error_logs/Queries/' . $category))
+            mkdir(__DIR__ . '/error_logs/Queries/' . $category, 0770, true);
 
-        if(strpos($category, 'QUERIES') !== false)
-            return __DIR__ . '/error_logs/Queries/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
+        if (strpos($category, 'QUERIES') !== false)
+            return __DIR__ . '/error_logs/Queries/' . $category . '/' . $category . '_' . date("Y.m.d") . '.log';
         else
-            return __DIR__ . '/error_logs/'.$category.'/'.$category.'_'.date("Y.n.j").'.log';
+            return __DIR__ . '/error_logs/' . $category . '/' . $category . '_' . date("Y.m.d") . '.log';
     }
 
     /**

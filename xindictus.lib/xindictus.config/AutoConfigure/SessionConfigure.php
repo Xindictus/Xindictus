@@ -24,7 +24,10 @@
  ******************************************************************************/
 namespace Indictus\Config\AutoConfigure;
 
-include_once(__DIR__."/../AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once __DIR__ . "/../../autoload.php";
 
 /**
  * Class SessionConfigure
@@ -33,7 +36,8 @@ include_once(__DIR__."/../AutoLoader/AutoLoader.php");
 class SessionConfigure extends Configure
 {
     /**
-     * @var
+     * @var $configArray : This array consists of the Session variables
+     * taken right from the configuration file.
      */
     protected $configArray;
 
@@ -43,13 +47,14 @@ class SessionConfigure extends Configure
     public function __construct()
     {
         parent::__construct();
+
         $this->configArray = $this->configFile['Session'];
     }
 
     /**
      * @return mixed
      */
-    function getSessionInfo()
+    public function getSessionInfo()
     {
         return $this->configArray;
     }
@@ -60,10 +65,12 @@ class SessionConfigure extends Configure
      */
     public function getParam($associate = null)
     {
-        if($associate == null)
+        if ($associate == null)
             return $this->configArray;
-        if(array_key_exists($associate, $this->configArray))
+
+        if (array_key_exists($associate, $this->configArray))
             return $this->configArray[$associate];
+
         return -1;
     }
 

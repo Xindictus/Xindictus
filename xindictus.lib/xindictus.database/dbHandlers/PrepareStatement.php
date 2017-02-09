@@ -37,13 +37,13 @@ class PrepareStatement
      * @var array|null
      * $columnFields: this array contains the column names of a database table.
      */
-    protected $columnNames = array();
+    protected $columnNames;
 
     /**
      * @var array|null
      * $columnValues: this array contains the values responding to the $columnNames.
      */
-    protected $columnValues = array();
+    protected $columnValues;
 
     /**
      * @var array
@@ -81,7 +81,7 @@ class PrepareStatement
         }
 
         foreach ($this->columnNames as $value)
-            $columnNames .= "$value,";
+            $columnNames .= "{$value},";
 
         /**
          * Return $this->columnNames without trailing comma
@@ -90,15 +90,20 @@ class PrepareStatement
     }
 
     /**
-     * @return string: returns in a string the named parameters,
+     * @param string $salt
+     * @return string returns in a string the named parameters,
      * separated by commas.
      */
-    public function getPreparedNamedParameters()
+    public function getPreparedNamedParameters($salt = "")
     {
         $preparedNamedParameters = "";
+
         foreach ($this->columnNames as $value) {
-            $preparedNamedParameters .= ":$value,";
-            array_push($this->preparedNamedParameters, ":$value");
+            $preparedNamedParameters .= ":{$value},";
+            if ($salt === "")
+                array_push($this->preparedNamedParameters, ":{$value}");
+            else
+                array_push($this->preparedNamedParameters, ":{$value}{$salt}");
         }
 
         /**
@@ -115,5 +120,6 @@ class PrepareStatement
     {
         return array_combine($this->preparedNamedParameters, $this->columnValues);
     }
-    
+
+    //TODO: LOW FLAG => IMPLEMENT CENTRAL getWhereClause function
 }

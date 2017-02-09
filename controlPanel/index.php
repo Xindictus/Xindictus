@@ -65,6 +65,13 @@ Gen\CacheBlocker::cacheBlock();
             <img id="versionLoader" src="img/724.gif">
         </div>
 
+        <div id="examples" class="row text-center table-desc examples">
+            Framework Examples
+            <a href="frameworkExample.php">
+                <span class="glyphicon glyphicon-share-alt" title="Examples"></span>
+            </a>
+        </div>
+
         <div class="row col-md-6 col-sm-12 text-center" style="padding-bottom: 20px">
             <h3 class="table-desc">
                 Database <span class="glyphicon glyphicon-cog"></span>
@@ -177,8 +184,9 @@ Gen\CacheBlocker::cacheBlock();
 
 </body>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/request-headers.js"></script>
 <script type="text/javascript" src="bootstrap/js/cpanel.js"></script>
 
 </html>

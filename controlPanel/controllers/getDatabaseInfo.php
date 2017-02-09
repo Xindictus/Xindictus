@@ -28,7 +28,7 @@ use Indictus\Config\AutoConfigure as AC;
 
 require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $data = array();
 

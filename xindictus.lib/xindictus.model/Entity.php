@@ -26,12 +26,11 @@ namespace Indictus\Model;
 
 use Indictus\Database\CRUD as crud;
 use Indictus\Database\dbHandlers as dbH;
-use Indictus\Filtering\Validation as val;
 
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php";
 
 /**
  * Class Entity
@@ -41,12 +40,12 @@ require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
  * consisting of the database abstraction layer, the Validator/Sanitizer and
  * Error Reporting of queries.
  */
-abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Validator
+abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD
 {
     /**
-     * @param $tableName: Table's name
-     * @param array $tableFields: Table's columns
-     * @param array $insertValues: Table's values
+     * @param $tableName : Table's name
+     * @param array $tableFields : Table's columns
+     * @param array $insertValues : Table's values
      * @return int: Return type (0 or -1)
      *
      * The encapsulation of the database's insertion.
@@ -56,9 +55,9 @@ abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Valid
         return parent::process_insert($tableName, $tableFields, $insertValues);
     }
 
-    protected function process_update($tableName, array $tableFields, array $updateValues, array $updateRow)
+    protected function process_update($tableName, array $updateValues = null, array $updateRow = null)
     {
-        return parent::process_update($tableName, $tableFields, $updateValues, $updateRow);
+        return parent::process_update($tableName, $updateValues, $updateRow);
     }
 
     protected function process_delete($tableName, array $deleteRow = null)
@@ -66,30 +65,13 @@ abstract class Entity extends dbH\DB_Table implements crud\SimpleCRUD, val\Valid
         return parent::process_delete($tableName, $deleteRow);
     }
 
-    protected function process_select($tableName, array $selectRow = null, $selectColumns = "*", $className)
+    protected function process_select($tableName, array $selectRow = null, $selectColumns = "*", $className = '')
     {
         return parent::process_select($tableName, $selectRow, $selectColumns, $className);
     }
 
     /**
-     * The validation/sanitation abstraction layer.
-     */
-
-    /**
      * Removes tags from the values.
      */
-    abstract public function stripUserInput();
-
-    /**
-     * Removes leading and trailing whitespaces from the values.
-     */
-    abstract public function trimWhitespaces();
-
-    /**
-     * @return mixed
-     *
-     * Validates values.
-     */
-    abstract public function validate_input();
-
+//    abstract public function stripUserInput();
 }

@@ -22,8 +22,12 @@
  * Time: 23:51
  *
  ******************************************************************************/
+use Indictus\General;
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+require_once __DIR__ . '/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php';
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $VFile = __DIR__ . '/../../VERSION';
 
@@ -32,5 +36,6 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 
     fclose($fileHandler);
 
+    General\CacheBlocker::cacheBlock();
     echo json_encode($data);
 }

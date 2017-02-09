@@ -26,26 +26,72 @@ namespace Indictus\General;
 
 use Indictus\Config\AutoConfigure as AC;
 
-require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once __DIR__ . "/../autoload.php";
+
 // TODO: CHANGE CONSTRUCTOR
+/**
+ * Class ClassCreator
+ * @package Indictus\General
+ *
+ * The Class responsible for creating all the classes - objects from the
+ * specified database.
+ */
 class ClassCreator
 {
+    /**
+     * @var string
+     */
     private $newFile;
+
+    /**
+     * @var string
+     */
     private $template;
+
+    /**
+     * @var bool
+     */
     private $autoIncrement;
 
+    /**
+     * @var null
+     */
     private $database;
-    private $className;
-    private $tableName;
-    private $tableFields;
-    private $properties;
-    private $constructorParam;
-    private $constructorBody;
-    private $setters;
-    private $getters;
 
+    /**
+     * @var string
+     */
+    private $className;
+
+    /**
+     * @var null
+     */
+    private $tableName;
+
+    /**
+     * @var array|null
+     */
+    private $tableFields;
+
+    /**
+     * @var string
+     */
+    private $namespace;
+
+    /**
+     * ClassCreator constructor.
+     * @param null $database
+     * @param string $alias
+     * @param null $tableName
+     * @param array|null $tableFields
+     * @param bool $autoIncrement
+     */
     public function __construct($database = null, $alias = "ALIAS", $tableName = null, array $tableFields = null, $autoIncrement = false)
     {
+        //TODO: CHANGE DATABASE TO ALIAS
         $this->database = $database;
         $this->tableName = $tableName;
 
@@ -59,14 +105,19 @@ class ClassCreator
 
         $app = new AC\AppConfigure();
         $debug = $app->getGlobalParam('debug');
+        $modelFLD = $app->getGlobalParam('models');
 
         $directory = "";
 
-        if ($debug === "enabled")
+        if ($debug === "enabled") {
             $directory = __DIR__ . "/../xindictus.cache/{$alias}";
+            $this->namespace = 'Indictus\Cache\\' . $alias;
+        }
 
-        if ($debug === "setup")
-            $directory = __DIR__ . "/../xindictus.Classes/{$alias}";
+        if ($debug === "setup") {
+            $directory = $modelFLD . "/{$alias}";
+            $this->namespace = 'AppModels';
+        }
 
         if (!file_exists($directory))
             mkdir($directory, 0777, true);
@@ -76,54 +127,112 @@ class ClassCreator
         $this->autoIncrement = $autoIncrement;
     }
 
+    /**
+     * Constructs the Class file using a template file.
+     */
+    public function constructFile()
+    {
+        $app = new AC\AppConfigure();
+        date_default_timezone_set($app->getParam('timezone'));
+
+        if (file_exists($this->newFile))
+            ftruncate(fopen($this->newFile, 'w'), 0);
+
+        /**
+         * Replace parts of the template with the corresponding pieces of the new class object.
+         */
+        if (file_exists($this->template)) {
+            $template = file_get_contents($this->template);
+            $template = str_replace("#NAMESPACE#", $this->namespace, $template);
+            $template = str_replace("#CLASSNAME#", $this->className, $template);
+            $template = str_replace("#DATE#", date("j/n/Y"), $template);
+            $template = str_replace("#TIME#", date("H:i"), $template);
+            $template = str_replace("#DATABASE#", "\"{$this->database}\"", $template);
+            $template = str_replace("#TABLE_NAME#", "\"$this->tableName\"", $template);
+            $template = str_replace("#TABLE_FIELDS#", "array('" . implode("','", $this->tableFields) . "')", $template);
+            $template = str_replace("#PROPERTIES#", $this->constructProperties(), $template);
+            $template = str_replace("#CONSTRUCTOR_PARAMETERS#", $this->constructConstParam(), $template);
+            $template = str_replace("#CONSTRUCTOR_BODY#", $this->constructConstBody(), $template);
+            $template = str_replace("#SETTERS#", $this->constructSetters(), $template);
+            $template = str_replace("#GETTERS#", $this->constructGetters(), $template);
+
+            /**
+             * Start writing file to disk.
+             */
+            $handle = fopen($this->newFile, 'w') or die('Cannot open file:  ' . $this->newFile);
+
+            fwrite($handle, $template);
+            fclose($handle);
+        }
+    }
+
+    /**
+     * @return int|string
+     *
+     * Constructs the properties of the new class. Returns -1 on error.
+     */
     private function constructProperties()
     {
         if ($this->tableFields == null)
             return -1;
 
         $properties = "";
-        foreach ($this->tableFields as $field) {
+
+        foreach ($this->tableFields as $field)
             $properties .= 'private $' . $field . ';' . PHP_EOL . "\t";
-        }
-        $this->properties = $properties;
-        return $this->properties;
+
+        return $properties;
     }
 
+    /**
+     * @return int|string
+     *
+     * Constructs the parameters of the constructor of our new class. Returns -1 on error.
+     */
     private function constructConstParam()
     {
         if ($this->tableFields == null)
             return -1;
 
         $constructorParam = array();
+
         foreach ($this->tableFields as $field) {
             array_push($constructorParam, "$" . $field . " = null");
         }
 
-        if ($this->autoIncrement === true) {
-            $temp = array_shift($constructorParam);
-            array_push($constructorParam, $temp);
-        }
+        if ($this->autoIncrement === true)
+            array_push($constructorParam, array_shift($constructorParam));
 
         $constructorParam = implode(", ", $constructorParam);
 
-        $this->constructorParam = rtrim(trim($constructorParam), ',');
-        return $this->constructorParam;
+        return rtrim(trim($constructorParam), ',');
     }
 
+    /**
+     * @return int|string
+     *
+     * Constructs the main body of the constructor of our new class. Returns -1 on error.
+     */
     private function constructConstBody()
     {
         if ($this->tableFields == null)
             return -1;
 
         $constructorBody = "";
+
         foreach ($this->tableFields as $field) {
             $constructorBody .= '$this->' . $field . " = $" .
                 $field . ";" . PHP_EOL . "\t\t";
         }
-        $this->constructorBody = trim($constructorBody);
-        return $this->constructorBody;
+
+        return trim($constructorBody);
     }
 
+    /**
+     * @return int|string
+     *
+     * Constructs the setter methods of our new class.
+     */
     private function constructSetters()
     {
         if ($this->tableFields == null)
@@ -147,10 +256,15 @@ class ClassCreator
 
             $setters .= $function . PHP_EOL . PHP_EOL . "\t";
         }
-        $this->setters = $setters;
-        return $this->setters;
+
+        return $setters;
     }
 
+    /**
+     * @return int|string
+     *
+     * Constructs the getter methods of our new class.
+     */
     private function constructGetters()
     {
         if ($this->tableFields == null)
@@ -173,42 +287,7 @@ class ClassCreator
 
             $getters .= $function . PHP_EOL . PHP_EOL . "\t";
         }
-        $this->getters = $getters;
-        return $this->getters;
-    }
 
-    public function constructFile()
-    {
-        $this->constructProperties();
-        $this->constructConstParam();
-        $this->constructConstBody();
-        $this->constructSetters();
-        $this->constructGetters();
-
-        $app = new AC\AppConfigure();
-        date_default_timezone_set($app->getParam('timezone'));
-
-        if(file_exists($this->newFile))
-            ftruncate(fopen($this->newFile, 'w'), 0);
-
-        if (file_exists($this->template)) {
-            $template = file_get_contents($this->template);
-            $template = str_replace("#CLASSNAME#", $this->className, $template);
-            $template = str_replace("#DATE#", date("j/n/Y"), $template);
-            $template = str_replace("#TIME#", date("H:i"), $template);
-            $template = str_replace("#DATABASE#", "\"{$this->database}\"", $template);
-            $template = str_replace("#TABLE_NAME#", "\"$this->tableName\"", $template);
-            $template = str_replace("#TABLE_FIELDS#", "array('".implode("','", $this->tableFields)."')", $template);
-            $template = str_replace("#PROPERTIES#", $this->properties, $template);
-            $template = str_replace("#CONSTRUCTOR_PARAMETERS#", $this->constructorParam, $template);
-            $template = str_replace("#CONSTRUCTOR_BODY#", $this->constructorBody, $template);
-            $template = str_replace("#SETTERS#", $this->setters, $template);
-            $template = str_replace("#GETTERS#", $this->getters, $template);
-
-            $handle = fopen($this->newFile, 'w') or die('Cannot open file:  '.$this->newFile);
-
-            fwrite($handle, $template);
-            fclose($handle);
-        }
+        return $getters;
     }
 }

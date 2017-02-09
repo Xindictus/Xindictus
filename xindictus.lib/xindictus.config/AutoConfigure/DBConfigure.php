@@ -24,7 +24,10 @@
  ******************************************************************************/
 namespace Indictus\Config\AutoConfigure;
 
-include_once(__DIR__."/../AutoLoader/AutoLoader.php");
+/**
+ * Require AutoLoader
+ */
+require_once __DIR__ . "/../../autoload.php";
 
 /**
  * Class DBConfigure
@@ -35,7 +38,7 @@ include_once(__DIR__."/../AutoLoader/AutoLoader.php");
 class DBConfigure extends Configure
 {
     /**
-     * @var $configArray: This array consists of the Database variables
+     * @var $configArray : This array consists of the Database variables
      * taken right from the configuration file.
      */
     protected $configArray;
@@ -46,6 +49,7 @@ class DBConfigure extends Configure
     public function __construct()
     {
         parent::__construct();
+
         $this->configArray = $this->configFile['Database'];
     }
 
@@ -55,15 +59,17 @@ class DBConfigure extends Configure
      */
     public function getParam($associate = null)
     {
-        if($associate == null)
+        if ($associate == null)
             return $this->configArray;
-        if(array_key_exists($associate, $this->configArray))
+
+        if (array_key_exists($associate, $this->configArray))
             return $this->configArray[$associate];
+
         return -1;
     }
 
     /**
-     * @param string $databaseAssoc: The database alias.
+     * @param string $databaseAssoc : The database alias.
      * @return array: Returns an array with all the configuration settings for
      * the selected database. If the alias is not found, it returns -1.
      */
@@ -72,7 +78,7 @@ class DBConfigure extends Configure
         if (array_key_exists($databaseAssoc, $this->configArray['database']))
             $database = $this->configArray['database'][$databaseAssoc];
         else
-            return -1;
+            return [];
 
         return [
             'driver' => $this->configArray['driver'],

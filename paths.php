@@ -56,6 +56,8 @@ return [
 
     'General' => 'xindictus.general',
 
+    'Mail' => 'xindictus.mail',
+
     'Model' => 'xindictus.model',
 
     'Session' => 'xindictus.session_management',
@@ -64,5 +66,7 @@ return [
 
     'Cache' => 'xindictus.cache',
 
-    'BugDB' => 'BugDB'
+    'BDs' => 'BusinessDays',
+
+    'AppModels' => ROOT . DS . 'models'
 ];

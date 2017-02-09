@@ -1,6 +1,6 @@
 <?php
 /******************************************************************************
- * Copyright (c) 2015 Konstantinos Vytiniotis, All rights reserved.
+ * Copyright (c) 2017 Konstantinos Vytiniotis, All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,12 @@
  * limitations under the License.
  *
  *
- * File: index.php
+ * File: autoload.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 17/12/2015
- * Time: 09:08
+ * Date: 2/1/2017
+ * Time: 05:12
  *
  ******************************************************************************/
-namespace Indictus\Filtering\Validation;
 
-interface Validator
-{
-    public function stripUserInput();
-    public function trimWhitespaces();
-    public function validate_input();
-}
+require_once __DIR__ . '/xindictus.config/Autoloader/AutoLoader.php';

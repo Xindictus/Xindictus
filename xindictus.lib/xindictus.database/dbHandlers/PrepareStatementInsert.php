@@ -15,45 +15,22 @@
  * limitations under the License.
  *
  *
- * File: tableQuery.php
+ * File: PrepareStatementSelect.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 22/4/2016
- * Time: 10:48
+ * Date: 24/6/2016
+ * Time: 03:05
  *
  ******************************************************************************/
-namespace Indictus\Database\moreHandlers;
+namespace Indictus\Database\dbHandlers;
 
 /**
- * Interface tableQuery
- * @package Indictus\Database\moreHandlers
+ * Class PrepareStatementSelect
+ * @package Indictus\Database\dbHandlers
  *
- * This interface provides a set useful methods concerning a database table.
+ * This class is used to create the arrays necessary for the prepared statements
+ * of PDO for the SELECT query.
  */
-interface tableQuery
+class PrepareStatementInsert extends PrepareStatement
 {
-    /**
-     * @param $database
-     * @param $table
-     * @return mixed
-     *
-     * Returns the number of table columns.
-     */
-    public function columnCount($database, $table);
-
-    /**
-     * @param $table
-     * @return mixed
-     *
-     * Returns the count of rows of the specified table.
-     */
-    public function rowCount($table);
-
-    /**
-     * @param $column
-     * @return mixed
-     *
-     * Returns the last inserted ID of specified column
-     */
-    public function lastInsertId($column);
 }

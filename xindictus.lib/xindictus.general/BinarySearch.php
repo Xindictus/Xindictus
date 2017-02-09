@@ -24,50 +24,52 @@
  ******************************************************************************/
 namespace Indictus\General;
 
-
+/**
+ * Class BinarySearch
+ * @package Indictus\General
+ *
+ * A simple Binary Search Class for integer and string arrays
+ *
+ */
 class BinarySearch
 {
     /**
-     * BinarySearch constructor.
+     * @param $array : the integer/string array
+     * @param $key : the value we are searching
+     * @return int : return position of element if search successful
+     *               else -1 if not found
      */
-    public function __construct()
+    public function binarySearch($array, $key)
     {
-    }
-
-    public function binarySearch(array $a, $key, $sort = false)
-    {
-        $mid = 0;
+        /**
+         * @var $L : the starting position of the array
+         * @var $R : the ending position of the array
+         */
         $L = 0;
-        $R = sizeof($a) - 1;
+        $R = count($array) - 1;
 
-        if ($sort)
-            sort($a);
-
-        var_dump($a);
-        echo "<br><br>";
+        /**
+         * Binary search needs a sorted array.
+         */
+        sort($array);
 
         $count = 0;
+
         while ($L <= $R) {
+
             $count++;
-            $mid = (int)(($L+$R) / 2);
-            echo $mid."<br>";
-            if ($a[$mid] < $key)
+            $mid = (int)(($L + $R) / 2);
+
+            if ($array[$mid] < $key)
                 $L = $mid + 1;
 
-            if ($a[$mid] > $key)
+            if ($array[$mid] > $key)
                 $R = $mid - 1;
 
-            if ($a[$mid] == $key)
+            if ($array[$mid] == $key)
                 return $count;
         }
 
         return -1;
     }
 }
-
-
-$a = new BinarySearch();
-$arr = [9, 4, 8, 3, 7, 2, 6, 1, 5];
-echo $a->binarySearch($arr, 9, false);
-echo "<br><br>";
-var_dump($arr);

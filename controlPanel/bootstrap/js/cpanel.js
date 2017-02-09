@@ -228,7 +228,6 @@ function loadInfo() {
             dataType: 'json',
             cache: false
         }).done( function( status ) {
-            console.log(status);
             var ul = $('<ul></ul>')
                 .addClass('nav nav-tabs');
             var content = $('<div></div>')
@@ -377,7 +376,7 @@ function loadInfo() {
             content
                 .append(clearfix.clone());
         });
-        // console.log(obj[keys[0]]);
+
         $('#modalB')
             .append(content);
 
@@ -395,11 +394,6 @@ function loadInfo() {
         });
     });
 }
-
-// function toggleGlyph(obj) {
-//     $(obj).toggleClass("glyphicon-chevron-down");
-//     $(obj).toggleClass("glyphicon-chevron-up");
-// }
 
 $(document).ready(function () {
     $('#refreshInfo').on('click', function () {

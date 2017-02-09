@@ -24,22 +24,33 @@
  ******************************************************************************/
 namespace Indictus\Database\dbHandlers;
 
+/**
+ * Class PrepareStatementDelete
+ * @package Indictus\Database\dbHandlers
+ *
+ * This class is used to create the arrays necessary for the prepared statements
+ * of PDO for the DELETE query.
+ */
 class PrepareStatementDelete extends PrepareStatement
 {
-    private $whereClause;
+    /**
+     * @var string
+     *
+     * The where clause that will be used in the DELETE query.
+     */
+    private $whereClause = "";
 
-    public function __construct($columnNames, $columnValues)
-    {
-        $this->whereClause = "";
-        parent::__construct($columnNames, $columnValues);
-    }
-
+    /**
+     * @return string
+     *
+     * Creation of the where clause
+     */
     public function getWhereClause()
     {
         if ($this->columnNames != null) {
             for ($i = 0; $i < count($this->columnNames); $i++) {
                 if ($this->columnValues[$i] != "") {
-                    if ($i != "")
+                    if ($i != 0)
                         $this->whereClause .= " AND {$this->columnNames[$i]}=:{$this->columnNames[$i]}";
                     else
                         $this->whereClause .= "WHERE {$this->columnNames[$i]}=:{$this->columnNames[$i]}";

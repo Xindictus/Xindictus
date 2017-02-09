@@ -29,7 +29,7 @@ use Indictus\Exception\ErHandlers as Errno;
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../../autoload.php";
 
 /**
  * Class DatabaseConnection
@@ -40,28 +40,18 @@ require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
 class DatabaseConnection
 {
     /**
-     * @param $dbAssociate: the database alias
-     * @return CustomPDO: return a new CustomPDO - which extends PDO - instance
+     * @param $dbAssociate : the database alias
+     * @return CustomPDO: returns a new CustomPDO - which extends PDO - instance
      */
     public static function startConnection($dbAssociate)
     {
-        $connection = new CustomPDO($dbAssociate);
-        return $connection;
+        return new CustomPDO($dbAssociate);
     }
 
     /**
-     * @param $connection: takes a CustomPDO connection as parameter
-     * @return int: Returns the status of the connection
-     */
-    public static function isConnected(CustomPDO $connection)
-    {
-        return $connection->isConnected();
-    }
-
-    /**
-     * @param CustomPDO $connection: Takes a connection as an argument and renders it null,
+     * @param CustomPDO $connection : Takes a connection as an argument and renders it null,
      * thus closing the chosen connection.
-     * @return int
+     * @return int : Return 0 on success, -1 on failure.
      */
     public static function closeConnection(CustomPDO $connection)
     {
@@ -80,11 +70,15 @@ class DatabaseConnection
              * Close connection
              */
             $connection = null;
-            return 0;
+
         } catch (\PDOException $closeException) {
 
-            $errorString = 'User: '.$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
-                'FAILED TO CLOSE CONNECTION TO DATABASE'.PHP_EOL.
+            /**
+             * Log connection error
+             */
+            $errorString = 'User: ' . $_SERVER['REMOTE_ADDR'] . ' - ' .
+                date("F j, Y, g:i a") . PHP_EOL .
+                'FAILED TO CLOSE CONNECTION TO DATABASE' . PHP_EOL .
                 $closeException->getMessage();
 
             $category = "DatabaseConnection";
@@ -92,8 +86,10 @@ class DatabaseConnection
             $errorHandler = new Errno\LogErrorHandler($errorString, $category);
             $errorHandler->createLogs();
 
-            return - 1;
+            return -1;
         }
-    }
 
+        return 0;
+
+    }
 }

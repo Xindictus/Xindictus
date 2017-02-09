@@ -39,6 +39,7 @@ return [
      * If 'disabled', Control Panel is inaccessible.
      */
     'debug' => 'enabled',
+    'models' => Indictus . '/../models',
 
     /*
      * Variables for the Application
@@ -48,9 +49,9 @@ return [
         'base' => false,
         'dir' => 'src',
         'fullBaseUrl' => false,
-        'imageBaseUrl' => 'img/',
-        'cssBaseUrl' => 'css/',
-        'jsBaseUrl' => 'js/',
+        'imageBaseUrl' => Indictus . '/../public/img/',
+        'cssBaseUrl' => Indictus . '/../public/css/',
+        'jsBaseUrl' => Indictus . '/../public/js/',
         'timezone' => 'Europe/Athens',
         'encoding' => 'utf8'
     ],
@@ -104,6 +105,26 @@ return [
         'table' => '',
         'cookie' => 'xindictusSession',
         'https' => ''
+    ],
+
+    /**
+     * enable ssl on php.ini
+     * secure less apps
+     */
+    'Mail' => [
+        /*
+         * 0 for production
+         * 1 - 3 for more details
+         */
+        'SMTPDebug' => 0,
+        'Debugoutput' => 'html',
+        'SMTPAuth' => true,
+        'Host' => gethostbyname('tls://smtp.gmail.com:587'),
+        'Username' => 'businessdays@pan-orama.org',
+//        'Username' => 'konst.vyti@gmail.com',
+//        'Password' => 'K0tsos199100.,',
+        'Password' => '1panoramaadmin',
+        'FromName' => 'Panorama Business Days (Xindictus Testing)'
     ]
 
 ];

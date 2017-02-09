@@ -29,7 +29,7 @@ use Indictus\Database\dbHandlers as dbHandlers;
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php";
 
 /**
  * Class DB_Model
@@ -40,24 +40,39 @@ require_once(__DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php");
 abstract class DB_Model
 {
     /**
-     * @var $connection: contains the connection for object's queries.
+     * @var $connection : contains the connection for object's queries.
      */
     protected static $connection;
 
     /**
-     * @var $errorCode: Contains the errorCode of the last failed query.
+     * @var $errorCode : Contains the errorCode of the last failed query.
      */
     protected static $errorCode;
 
     /**
-     * @var $errorInfo: A string containing the errorInfo of the last failed query.
+     * @var $errorInfo : A string containing the errorInfo of the last failed query.
      */
     protected static $errorInfo;
 
     /**
-     * @param dbHandlers\CustomPDO $connection
+     * @return \Indictus\Database\dbHandlers\CustomPDO
+     *
+     * This method returns the current connection.
      */
-    abstract public function setConnection(dbHandlers\CustomPDO $connection);
+    public static function getConnection()
+    {
+        return self::$connection;
+    }
+
+    /**
+     * @param dbHandlers\CustomPDO $connection : A PDO connection to a database.
+     *
+     * This method sets the connection to the database for the specified object.
+     */
+    public function setConnection(dbHandlers\CustomPDO $connection)
+    {
+        self::$connection = $connection;
+    }
 
     /**
      * @param $table
@@ -66,8 +81,10 @@ abstract class DB_Model
      * @return mixed
      */
     abstract protected function process_insert($table, array $columnNames, array $columnValues);
-    abstract protected function process_update($table, array $columnNames, array $columnValues, array $updateRow);
+
+    abstract protected function process_update($table, array $columnValues, array $updateRow);
+
     abstract protected function process_delete($tableName, array $deleteRow);
+
     abstract protected function process_select($tableName, array $selectRow, $selectColumns, $className);
-    // TODO: Implement Class for Abstract Queries
 }

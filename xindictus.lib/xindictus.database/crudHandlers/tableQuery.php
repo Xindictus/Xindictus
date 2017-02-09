@@ -18,47 +18,42 @@
  * File: tableQuery.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 13/4/2016
- * Time: 06:29
+ * Date: 22/4/2016
+ * Time: 10:48
  *
  ******************************************************************************/
 namespace Indictus\Database\CRUD;
 
 /**
- * Interface SimpleCRUD
- * @package Indictus\Database\CRUD
+ * Interface tableQuery
+ * @package Indictus\Database\moreHandlers
  *
- * Used to enforce CRUD methods, with simple names, and different from
- * the ones used by the framework.
- *
+ * This interface provides a set useful methods concerning a database table.
  */
-interface SimpleCRUD
+interface tableQuery
 {
     /**
+     * @param $database
+     * @param $table
      * @return mixed
      *
-     * Implements the insert method to a class
+     * Returns the number of table columns.
      */
-    public function insert();
+    public function columnCount($database, $table);
 
     /**
+     * @param $table
      * @return mixed
      *
-     * Implements the update method to a class
+     * Returns the count of rows of the specified table.
      */
-    public function update();
+    public function rowCount($table);
 
     /**
+     * @param $column
      * @return mixed
      *
-     * Implements the delete method to a class
+     * Returns the last inserted ID of specified column
      */
-    public function delete();
-
-    /**
-     * @return mixed
-     *
-     * Implements the select method to a class
-     */
-    public function select();
+    public function lastInsertId($column);
 }

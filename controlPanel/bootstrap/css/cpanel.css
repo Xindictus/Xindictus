@@ -91,3 +91,6 @@
 .link-pointer {
     cursor: pointer;
 }
+.examples {
+    font-size: 150%;
+}

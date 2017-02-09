@@ -22,17 +22,19 @@
  * Time: #TIME#
  *
  ******************************************************************************/
-namespace Indictus\Model;
+namespace #NAMESPACE#;
+
+use Indictus\Model;
 
 /**
  * Require AutoLoader
  */
-require_once(__DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php");
+require_once __DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php";
 
-class #CLASSNAME# extends Entity
+class #CLASSNAME# extends Model\Entity
 {
     const DATABASE = #DATABASE#;
-    private static $tableName = #TABLE_NAME#;
+    const TABLE_NAME = #TABLE_NAME#;
 
     private static $tableFields = #TABLE_FIELDS#;
 
@@ -48,109 +50,121 @@ class #CLASSNAME# extends Entity
     public function insert()
     {
         return parent::process_insert(self::TABLE_NAME, self::$tableFields, $this->getObjectValues());
-    }
+}
 
-    public function update()
-    {
-        if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+public function update(array $updateValues = null, array $whereClause = null)
+{
+if ($whereClause == null) {
+$whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
+$whereClause = array(
+array_keys($whereClause)[0] => $this->{array_keys($whereClause)[0]}
+);
+}
 
-        return parent::process_update(self::TABLE_NAME, $tableFields, $tableValues, $whereClause);
-    }
+return parent::process_update(self::TABLE_NAME, $updateValues, $whereClause);
+}
 
-    public function delete()
-    {
-        if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+public function delete(array $whereClause = null)
+{
+if ($whereClause == null) {
+$whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
+$whereClause = array(
+array_keys($whereClause)[0] => $this->{array_keys($whereClause)[0]}
+);
+}
 
-        return parent::process_delete(self::TABLE_NAME, $whereClause);
-    }
+return parent::process_delete(self::TABLE_NAME, $whereClause);
+}
 
-    public function select()
-    {
-        if ($whereClause == null)
-            $whereClause = array_slice(get_object_vars($this), 0, 1);
+public function select(array $whereClause = null, $selectColumns = "*")
+{
+if ($whereClause == null) {
+$whereClause = array_slice(array_slice(get_class_vars(__CLASS__), 0, -4), 0, 1);
+$whereClause = array(
+array_keys($whereClause)[0] => $this->{array_keys($whereClause)[0]}
+);
+}
 
-        return parent::process_select(self::TABLE_NAME, $whereClause, $selectColumns, get_class());
-    }
+return parent::process_select(self::TABLE_NAME, $whereClause, $selectColumns, get_class());
+}
 
-    /**
-     * @return array
-     *
-     * Returns an array of this object's properties' values.
-     */
-    private function getObjectValues()
-    {
-        $columnValues = array();
+/**
+* @return array
+*
+* Returns an array of this object's properties' values.
+*/
+private function getObjectValues()
+{
+$columnValues = array();
 
-        /**
-         * Get object's properties' values.
-         */
+/**
+* Get object's properties' values.
+*/
+$keys = array_keys(array_slice(get_class_vars(__CLASS__), 0, -4));
 
-        $vars = get_object_vars($this);
-        /**
-         * Iterate $vars and add the values to a new array $columnValues
-         */
-        foreach ($vars as $key => $value)
-            array_push($columnValues, $value);
+$vars = array();
+foreach ($keys as $var)
+$vars[$var] = $this->{$var};
 
-        return $columnValues;
-    }
+/**
+* Iterate $vars and add the values to a new array $columnValues
+*/
+foreach ($vars as $key => $value)
+array_push($columnValues, $value);
 
-    /**
-     * @param int $column: Column of table, represented by object's $table_fields.
-     * @return int: Number of columns.
-     */
-    public function lastInsertId($column = 0)
-    {
-        return parent::lastInsertId(self::$tableName.".".self::$tableFields[$column]);
-    }
+return $columnValues;
+}
 
-    /**
-     * @param null $database: Database alias.
-     * @param null $table: Table name.
-     * @return int: Number of columns.
-     */
-    public function columnCount($database = null, $table = null)
-    {
-        if ($table == null)
-            $table = self::$tableName;
-        return parent::columnCount(self::DATABASE, $table);
-    }
+/**
+* @param int $column: Column of table, represented by object's $table_fields.
+* @return int: Number of columns.
+*/
+public function lastInsertId($column = 0)
+{
+return parent::lastInsertId(self::TABLE_NAME.".".self::$tableFields[$column]);
+}
 
-    /**
-     * @param null $table: Table name.
-     * @return int: Return number of rows.
-     */
-    public function rowCount($table = null)
-    {
-        if ($table == null)
-            $table = self::$tableName;
-        return parent::rowCount($table);
-    }
+/**
+* @param $database: Database alias.
+* @param $table: Table name.
+* @return int: Number of columns.
+*/
+public function columnCount($database = self::DATABASE, $table = self::TABLE_NAME)
+{
+return parent::columnCount($database, $table);
+}
 
-    /**
-     * Remove tags from the values.
-     */
-    public function stripUserInput()
-    {
-        foreach (self::$tableFields as $value)
-            $this->{$value} = strip_tags(html_entity_decode($this->{$value}));
-    }
+/**
+* @param $table: Table name.
+* @return int: Return number of rows.
+*/
+public function rowCount($table = self::TABLE_NAME)
+{
+return parent::rowCount($table);
+}
 
-    /**
-     * Removes leading and trailing whitespaces from the values.
-     */
-    public function trimWhitespaces()
-    {
-        foreach (self::$tableFields as $value)
-            $this->{$value} = trim($this->{$value});
-    }
+/**
+* Remove tags from the values.
+*/
+public function stripUserInput()
+{
+foreach (self::$tableFields as $value)
+$this->{$value} = strip_tags(html_entity_decode($this->{$value}));
+}
 
-    function validate_input()
-    {
-        // TODO: Implement validate_input() method.
-    }
+/**
+* Removes leading and trailing whitespaces from the values.
+*/
+public function trimWhitespaces()
+{
+foreach (self::$tableFields as $value)
+$this->{$value} = trim($this->{$value});
+}
 
-    #SETTERS##GETTERS#
+function validate_input()
+{
+// TODO: Implement validate_input() method.
+}
+
+#SETTERS##GETTERS#
 }

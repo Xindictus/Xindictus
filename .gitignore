@@ -1,5 +1,5 @@
 .idea/**
-test/**
+examples/**
 xindictus.lib/xindictus.cache/**
 panorama.business_days.lib/**
 *.test.php
@@ -14,3 +14,6 @@ panorama.business_days.lib/**
 ehthumbs.db
 Thumbs.db
 *.graphml
+.idea/
+examples/
+models/**

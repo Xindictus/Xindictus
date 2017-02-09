@@ -35,11 +35,11 @@ class AutoLoader
      */
     public static function autoload($className)
     {
-        $paths = include(__DIR__."/../../../paths.php");
+        $paths = include(__DIR__ . "/../../../paths.php");
         $className = ltrim($className, '\\');
-        $fileName  = '';
+        $fileName = '';
 
-        if ($lastNsPos = strrpos($className, '\\')){
+        if ($lastNsPos = strrpos($className, '\\')) {
 
             $lastNsPos = strrpos($className, '\\');
             $namespace = explode('\\', substr($className, 0, $lastNsPos));
@@ -51,7 +51,8 @@ class AutoLoader
 
         $fileName .= $className . '.php';
 
-        require_once $fileName;
+        if (file_exists($fileName))
+            require_once $fileName;
     }
 }
 

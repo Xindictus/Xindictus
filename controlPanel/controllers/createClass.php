@@ -90,7 +90,7 @@ require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoa
     </html>
 
 <?php
-if ($_SERVER['REQUEST_METHOD']=='POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $formDB_error = 0;
     $numDB_error = 0;

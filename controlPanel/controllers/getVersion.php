@@ -27,7 +27,7 @@ use Indictus\Config\AutoConfigure;
 
 require_once(__DIR__ . "/../../xindictus.lib/xindictus.config/AutoLoader/AutoLoader.php");
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $version = new AutoConfigure\AppConfigure;
     $version = $version->getPhpVer();
