@@ -1,4 +1,5 @@
 .idea/**
+phpmetrics/**
 examples/**
 xindictus.lib/xindictus.cache/**
 panorama.business_days.lib/**
