@@ -1,8 +1,3 @@
-.idea/**
-phpmetrics/**
-examples/**
-xindictus.lib/xindictus.cache/**
-panorama.business_days.lib/**
 *.test.php
 *.log
 *.sql
@@ -17,4 +12,5 @@ Thumbs.db
 *.graphml
 .idea/
 examples/
-models/**
+phpmetrics/
+models/
