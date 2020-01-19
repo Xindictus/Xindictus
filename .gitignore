@@ -10,7 +10,7 @@
 ehthumbs.db
 Thumbs.db
 *.graphml
-.idea/
-examples/
-phpmetrics/
+.idea/*
+examples/*
+phpmetrics/*
 models/

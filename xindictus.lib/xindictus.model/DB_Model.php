@@ -29,7 +29,7 @@ use Indictus\Database\dbHandlers as dbHandlers;
 /**
  * Require AutoLoader
  */
-require_once __DIR__ . "/../xindictus.config/AutoLoader/AutoLoader.php";
+require_once __DIR__ . '/../autoload.php';
 
 /**
  * Class DB_Model

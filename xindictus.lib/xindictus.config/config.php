@@ -22,6 +22,7 @@
  * Time: 04:05
  *
  ******************************************************************************/
+
 namespace Indictus\Config;
 
 return [
@@ -38,8 +39,19 @@ return [
      * If 'setup', Files are created inside xindictus.Classes instead of xindictus.cache.
      * If 'disabled', Control Panel is inaccessible.
      */
-    'debug' => 'enabled',
-    'models' => Indictus . '/../models',
+    'debug' => 'disabled',
+    'models' => PROJECT . DS . 'models',
+
+    /*
+     * Variables for the Platform
+     *
+     * year: current year
+     * panorama_id: the id of the current panorama event taken from `panorama_event` table
+     */
+    'Platform' => [
+        'year' => 2019,
+        'panorama_id' => 82
+    ],
 
     /*
      * Variables for the Application
@@ -69,15 +81,14 @@ return [
         'host' => 'localhost',
         'port' => '3306',
         'username' => 'root',
+//        'username' => 'xindictus',
         'password' => 'abc123',
+//        'password' => '9<Xhe4?;BY7vwpUj',
         'database' => [
             /*
              * Databases (values) are represented with an alias (key).
              */
-            'BusinessDays' => 'business_days_database',
-            'BD2' => 'business_days_database2',
-            'BugDB' => 'bug_tracking',
-            'Aaa' => 'hw3'
+            'BusinessDays' => 'business_days_db'
         ],
         'charset' => 'utf8',
 //        'collation' => 'utf8_unicode_ci',
@@ -94,8 +105,7 @@ return [
 
     'Session' => [
         /*
-         * Supported: "file", "cookie", "database", "apc",
-         * "memcached", "redis", "array"
+         *
          */
         'driver' => '',
         'lifetime' => '3600',
@@ -121,10 +131,9 @@ return [
         'SMTPAuth' => true,
         'Host' => gethostbyname('tls://smtp.gmail.com:587'),
         'Username' => 'businessdays@pan-orama.org',
-//        'Username' => 'konst.vyti@gmail.com',
-//        'Password' => 'K0tsos199100.,',
         'Password' => '1panoramaadmin',
-        'FromName' => 'Panorama Business Days (Xindictus Testing)'
+        'FromName' => 'Πανόραμα ~ Business Days',
+        'Encoding' => 'UTF-8'
     ]
 
 ];

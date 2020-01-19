@@ -1,6 +1,6 @@
 <?php
 /******************************************************************************
- * Copyright (c) 2016 Konstantinos Vytiniotis, All rights reserved.
+ * Copyright (c) 2018 Konstantinos Vytiniotis, All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,14 @@
  * limitations under the License.
  *
  *
- * File: getConnectionStatus.php
+ * File: PlatformConfigure.php
  * User: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 20/4/2016
- * Time: 08:41
+ * Date: 15/12/2018
+ * Time: 15:19
  *
  ******************************************************************************/
+
 namespace Indictus\Config\AutoConfigure;
 
 /**
@@ -30,57 +31,47 @@ namespace Indictus\Config\AutoConfigure;
 require_once __DIR__ . "/../../autoload.php";
 
 /**
- * Class AppConfigure
+ * Class PlatformConfigure
  * @package Indictus\Config\AutoConfigure
  *
- * This class loads the configuration properties for the Application.
+ * This class loads basic configuration parameters for the Application,
+ * such as the current panorama event.
  */
-class AppConfigure extends Configure
+class PlatformConfigure extends Configure
 {
     /**
-     * @var $configArray : This array consists of the App variables
+     * @var $configArray : This array consists of the Platform variables
      * taken right from the configuration file.
      */
     protected $configArray;
 
     /**
-     * @var $phpVer : The PHP version.
-     */
-    protected $phpVer;
-
-    /**
-     * AppConfigure constructor.
+     * PlatformConfigure constructor.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->configArray = $this->configFile['App'];
-        $this->phpVer = $this->configFile['PHP']['version'];
+        $this->configArray = $this->configFile['Platform'];
+
+        return $this;
     }
 
     /**
      * @param null $associate : The name of the parameter we are searching.
-     * @return int|mixed: Returns the parameter's value, or, if the parameter
-     * was not found, returns -1.
+     * @return int|mixed: Returns the whole configuration array for the Platform,
+     * or the association's value or -1 if the parameter was not found.
      */
     public function getParam($associate = null)
     {
-        if ($associate == null)
+        if ($associate == null) {
             return $this->configArray;
+        }
 
-        if (array_key_exists($associate, $this->configArray))
+        if (array_key_exists($associate, $this->configArray)) {
             return $this->configArray[$associate];
+        }
 
         return -1;
     }
-
-    /**
-     * @return: Returns the PHP version.
-     */
-    public function getPhpVer()
-    {
-        return $this->phpVer;
-    }
-
 }

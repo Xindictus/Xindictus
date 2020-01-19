@@ -49,8 +49,6 @@ abstract class SessionKeyCreator extends G\Cryptor implements G\KeyCreator
 
         $key = "{$prefix}{$user_id}{$suffix}";
 
-        //$final_key = parent::encryptIt($key);
-        //return $final_key;
         return $key;
     }
 
@@ -62,8 +60,6 @@ abstract class SessionKeyCreator extends G\Cryptor implements G\KeyCreator
      */
     public function decryptNumKey($key)
     {
-        //$decryptedKey = parent::decryptIt($key);
-        //$noFix = substr($decryptedKey, strlen($this->prefix), -strlen($this->suffix));
         $noFix = substr($key, strlen($this->prefix), -strlen($this->suffix));
 
         return $noFix;

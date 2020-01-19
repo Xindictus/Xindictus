@@ -102,12 +102,12 @@ class CustomPDO extends \PDO
                 /**
                  * Set CHARACTER SET
                  */
-                $this->exec("SET CHARACTER SET {$config->getParam('charset')}");
+                //$this->exec("SET CHARACTER SET {$config->getParam('charset')}");
 
                 /**
                  * Set SQL timezone.
                  */
-                $this->exec("SET time_zone = '{$timezone}'");
+                //$this->exec("SET time_zone = '{$timezone}'");
 
                 /**
                  * Update $isConnected value.

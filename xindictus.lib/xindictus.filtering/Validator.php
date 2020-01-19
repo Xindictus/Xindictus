@@ -145,7 +145,7 @@ class Validator
 
     public function isValidExactLen($string = null, $len = null)
     {
-        return (!$string || !$len) ? -1 : ((strlen($string) === $len) ? 0 : -1);
+        return (!$string || !$len) ? -1 : ((strlen($string) === (int)$len) ? 0 : -1);
     }
 
     public function isValidExactValue($number = null, $value = null)
@@ -165,7 +165,7 @@ class Validator
 
     public function isValidMaxLen($string = null, $max = null)
     {
-        return (!$string || !$max) ? -1 : ((strlen($string) >= $max) ? 0 : -1);
+        return (!$string || !$max) ? -1 : ((strlen($string) <= (int)$max) ? 0 : -1);
     }
 
     /**
@@ -198,7 +198,7 @@ class Validator
      */
     public function isValidMinLen($string = null, $min = null)
     {
-        return (!$string || !$min) ? -1 : ((strlen($string) >= $min) ? 0 : -1);
+        return (!$string || !$min) ? -1 : ((strlen($string) >= (int)$min) ? 0 : -1);
     }
 
     /**

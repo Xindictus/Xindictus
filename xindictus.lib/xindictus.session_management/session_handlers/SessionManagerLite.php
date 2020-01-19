@@ -22,7 +22,10 @@
  * Time: 04:43
  *
  ******************************************************************************/
+
 namespace Indictus\Session\SHandlers;
+
+use Indictus\General as G;
 
 /**
  * Require Autoloader.
@@ -36,33 +39,68 @@ require_once __DIR__ . '/../../autoload.php';
 class SessionManagerLite extends SessionKeyCreator implements SessionManager
 {
     /**
-     * @var null
+     * @param null $userId
+     * @param null $fullName
      */
-    private $panorama_user_id;
-
-    /**
-     * SessionManager constructor.
-     * @param $panorama_user_id
-     */
-    public function __construct($panorama_user_id = NULL)
+    public function startSession($userId = null, $fullName = null)
     {
-        $this->panorama_user_id = $panorama_user_id;
+        $lifeTime = 14400;
+        $name = 'BusinessDays2019';
+
+        date_default_timezone_set('Europe/Athens');
+        /* 4 HOURS */
+        ini_set('session.gc_maxlifetime', 14400);
+        ini_set('session.cookie_httponly', true);
+
+        session_set_cookie_params(
+            14400,
+            '/',
+            null,
+//            '.pan-orama.org',
+            false,
+//            TRUE,
+            true
+        );
+
+        session_name($name);
+
+        if (session_start()) {
+            setcookie($name, $name . time(), time() + $lifeTime, '/', null, false, true);
+//            setcookie($name, $name . time(), time() + $lifeTime, '/', '.pan-orama.org', TRUE, TRUE);
+            session_regenerate_id(true);
+            $user_key = parent::createNumKey($userId);
+            $_SESSION["user_key"] = $user_key;
+            $_SESSION["fullName"] = $fullName;
+            $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+            $_SESSION['remote_ip'] = $_SERVER['REMOTE_ADDR'];
+        }
+//        session_start();
+
+
     }
 
-    /**
-     *
-     */
-    public function startSession()
+    public function checkSession()
     {
-        //$timeout
-        ini_set('session.gc_maxlifetime', 1440);
-        session_name("GO!PanoramaSESSION");
-        session_start();
-        session_regenerate_id(true);
-        $user_key = parent::createNumKey($this->panorama_user_id);
-        $_SESSION["user_key"] = $user_key;
-        $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
-        $_SESSION['remote_ip'] = $_SERVER['REMOTE_ADDR'];
+        if (session_status() == PHP_SESSION_NONE) {
+            session_name("BusinessDays2019");
+            session_start();
+        }
+
+        $loginFlag = -1;
+
+        if (
+            isset($_SESSION['user_key']) &&
+            isset($_SESSION['user_agent']) &&
+            isset($_SESSION['remote_ip']) &&
+            isset($_SESSION['fullName'])
+        ) {
+//            if ($_SESSION['user_agent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['remote_ip'] == $_SERVER['REMOTE_ADDR']) {
+            $loginFlag = 0;
+//                session_regenerate_id(true);
+//            }
+        }
+
+        return $loginFlag;
     }
 
     /**
@@ -78,6 +116,10 @@ class SessionManagerLite extends SessionKeyCreator implements SessionManager
      */
     public function destroySession()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_name("BusinessDays2019");
+            session_start();
+        }
         session_unset();
         session_destroy();
     }

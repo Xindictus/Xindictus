@@ -16,7 +16,7 @@
  *
  *
  * File: index.php
- * User: Konstantinos Vytiniotis
+ * Created by: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
  * Date: 12/4/2016
  * Time: 04:12
@@ -24,17 +24,24 @@
  ******************************************************************************/
 namespace Indictus;
 
-if (!defined('DS')) {
+if (!defined('DS'))
     define('DS', DIRECTORY_SEPARATOR);
-}
 
-if (!defined('ROOT')) {
+//TODO: CHANGE ACCORDING TO PARENT FOLDER
+if (!defined('BASE'))
+    define('BASE', '/BusinessDays/');
+
+if (!defined('ROOT'))
     define('ROOT', __DIR__);
-}
 
-if (!defined('Indictus')) {
+if (!defined('Indictus'))
     define('Indictus', ROOT . DS . "xindictus.lib");
-}
+
+if (!defined('PROJECT'))
+    define('PROJECT', ROOT . DS . "..");
+
+if (!defined('MODELS'))
+    define('MODELS', "/BusinessDays/app/models/BusinessDays");
 
 return [
     'Indictus' => Indictus,
@@ -61,12 +68,13 @@ return [
     'Model' => 'xindictus.model',
 
     'Session' => 'xindictus.session_management',
+    'SHandlers' => 'session_handlers',
 
     'Privilege' => 'xindictus.privilege_handlers',
 
     'Cache' => 'xindictus.cache',
 
-    'BDs' => 'BusinessDays',
-
-    'AppModels' => ROOT . DS . 'models'
+    'Project' => PROJECT,
+    'Models' => 'models',
+    'Bds' => 'BusinessDays'
 ];

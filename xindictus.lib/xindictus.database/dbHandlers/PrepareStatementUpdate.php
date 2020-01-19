@@ -121,7 +121,8 @@ class PrepareStatementUpdate extends PrepareStatement
     {
         if ($this->columnNames != null)
             for ($i = 0; $i < count($this->columnNames); $i++)
-                if ($this->columnValues[$i] != "")
+                //TODO: ELABORATE ON THIS
+//                if ($this->columnValues[$i] != "")
                     $this->updateClause .= "{$this->columnNames[$i]}=:{$this->columnNames[$i]}, ";
 
         return rtrim($this->updateClause, ', ');

@@ -22,6 +22,7 @@
  * Time: 15:50
  *
  ******************************************************************************/
+
 namespace Indictus\General;
 
 /**
@@ -38,6 +39,8 @@ class CacheBlocker
      */
     public static function cacheBlock()
     {
+        ini_set('session.cookie_httponly', 1);
+
         header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
         header("Pragma: no-cache"); // HTTP 1.0.
         header("Expires: 0"); // Proxies.
@@ -55,36 +58,36 @@ class CacheBlocker
          * protect websites against protocol downgrade attacks and cookie hijacking
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#HTTP_Strict_Transport_Security_.28HSTS.29
          */
-        header("Strict-Transport-Security: max-age=31536000 ; includeSubDomains");
+        header("Strict-Transport-Security: max-age=31536000 ; includeSubDomains; HttpOnly");
 
         /**
          * protection of web applications against Clickjacking
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#X-Frame-Options
          */
-        header("X-Frame-Options: SAMEORIGIN");
+//        header("X-Frame-Options: deny; HttpOnly");
 
         /**
          * enables the Cross-site scripting (XSS) filter in your browser
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#X-XSS-Protection
          */
-        header("X-XSS-Protection: 1; mode=block");
+//        header("X-XSS-Protection: 1; mode=block; HttpOnly");
 
         /**
          * prevents the browser from interpreting files as something else than declared by the content type
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#X-Content-Type-Options
          */
-        header("X-Content-Type-Options: nosniff");
+//        header("X-Content-Type-Options: nosniff; HttpOnly");
 
         /**
          * CSP prevents a wide range of attacks, including Cross-site scripting and other cross-site injections.
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#Content-Security-Policy
          */
-        // header("Content-Security-Policy: script-src 'self'");
+//         header("Content-Security-Policy: script-src 'self'");
 
         /**
          * No policy files are allowed anywhere on the target server, including this master policy file.
          * https://www.owasp.org/index.php/List_of_useful_HTTP_headers#X-Permitted-Cross-Domain-Policies
          */
-        header("X-Permitted-Cross-Domain-Policies: none");
+        header("X-Permitted-Cross-Domain-Policies: none; HttpOnly");
     }
 }

@@ -94,6 +94,7 @@ class Mailer
 
         $this->mailer->From = $mailConf->getParam('Username');
         $this->mailer->FromName = $mailConf->getParam('FromName');
+        $this->mailer->CharSet = $mailConf->getParam('Encoding');
     }
 
     /**

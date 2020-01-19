@@ -80,6 +80,10 @@ class ClassCreator
      * @var string
      */
     private $namespace;
+    /**
+     * @var string
+     */
+    private $autoloadPath;
 
     /**
      * ClassCreator constructor.
@@ -116,7 +120,8 @@ class ClassCreator
 
         if ($debug === "setup") {
             $directory = $modelFLD . "/{$alias}";
-            $this->namespace = 'AppModels';
+            $this->namespace = 'Project\Models\Bds';
+            $this->autoloadPath = '/../../xindictus/xindictus.lib/autoload.php';
         }
 
         if (!file_exists($directory))
@@ -144,6 +149,7 @@ class ClassCreator
         if (file_exists($this->template)) {
             $template = file_get_contents($this->template);
             $template = str_replace("#NAMESPACE#", $this->namespace, $template);
+            $template = str_replace("#AUTOLOAD_PATH#", $this->autoloadPath, $template);
             $template = str_replace("#CLASSNAME#", $this->className, $template);
             $template = str_replace("#DATE#", date("j/n/Y"), $template);
             $template = str_replace("#TIME#", date("H:i"), $template);

@@ -1,6 +1,6 @@
 <?php
 /******************************************************************************
- * Copyright (c) 2015 Konstantinos Vytiniotis, All rights reserved.
+ * Copyright (c) 2017 Konstantinos Vytiniotis, All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,35 +15,35 @@
  * limitations under the License.
  *
  *
- * File: index.php
- * User: Konstantinos Vytiniotis
+ * File: PasswordHasher.php
+ * Created by: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
- * Date: 18/12/2015
- * Time: 07:44
+ * Date: 20/2/2017
+ * Time: 09:18
  *
  ******************************************************************************/
-namespace Indictus\Session\SHandlers;
+namespace Indictus\General;
 
-/**
- * Interface SessionManager
- */
-interface SessionManager
+class PasswordHasher
 {
+    public static function passHashing($password)
+    {
+        if (phpversion() >= '5.5.0') {
+            $options = [
+                'cost' => 10,
+            ];
+            return password_hash($password, PASSWORD_BCRYPT, $options);
+        }
 
-    /**
-     * @param $userId
-     * @param $fullName
-     */
-    function startSession($userId, $fullName);
+        return FALSE;
+    }
 
-    /**
-     * @return mixed
-     */
-    function setSessionVariables();
+    public static function passVerify($password, $hash)
+    {
+        if (phpversion() >= '5.5.0') {
+            return password_verify($password, $hash) ? 0 : -1;
+        }
 
-    /**
-     * @return mixed
-     */
-    function destroySession();
-
+        return -1;
+    }
 }

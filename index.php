@@ -16,7 +16,7 @@
  *
  *
  * File: index.php
- * User: Konstantinos Vytiniotis
+ * Created by: Konstantinos Vytiniotis
  * Email: konst.vyti@hotmail.com
  * Date: 21/4/2016
  * Time: 20:38

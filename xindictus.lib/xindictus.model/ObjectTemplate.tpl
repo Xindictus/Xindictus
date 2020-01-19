@@ -29,7 +29,7 @@ use Indictus\Model;
 /**
  * Require AutoLoader
  */
-require_once __DIR__ . "/../../xindictus.config/AutoLoader/AutoLoader.php";
+require_once __DIR__ . '#AUTOLOAD_PATH#';
 
 class #CLASSNAME# extends Model\Entity
 {

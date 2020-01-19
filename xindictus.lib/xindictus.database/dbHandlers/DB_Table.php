@@ -22,6 +22,7 @@
  * Time: 06:55
  *
  ******************************************************************************/
+
 namespace Indictus\Database\dbHandlers;
 
 use Indictus\Config\AutoConfigure as AC;
@@ -236,8 +237,9 @@ abstract class DB_Table extends dbModel\DB_Model implements CRUD\tableQuery
         /**
          * Dynamically creating the query.
          */
-        if ($updateValues == null || $updateRow == null)
+        if ($updateValues == null || $updateRow == null) {
             return -1;
+        }
 
         $prepareQuery = new PrepareStatementUpdate($updateValues, $updateRow);
 
@@ -274,8 +276,8 @@ abstract class DB_Table extends dbModel\DB_Model implements CRUD\tableQuery
              * Further check if deletion happened by checking
              * the number of affected rows.
              */
-            if ($updateStmt->rowCount() == 0)
-                throw new \PDOException("AFFECTED ROWS = 0");
+//            if ($updateStmt->rowCount() == 0)
+//                throw new \PDOException("AFFECTED ROWS = 0");
 
             /**
              * Close stmt
@@ -283,11 +285,12 @@ abstract class DB_Table extends dbModel\DB_Model implements CRUD\tableQuery
             $updateStmt->closeCursor();
 
         } catch (\PDOException $updateException) {
-            $errorString = 'Delete Failure :: ' . $updateQuery . PHP_EOL .
+            $errorString = 'Update Failure :: ' . $updateQuery . PHP_EOL .
                 'Update parameters :: (' . $updateParam . ') ' . PHP_EOL .
                 'Values given :: (' . implode(",", $updateBindings) . ') ' . PHP_EOL .
                 'Named parameters :: (' . $namedParam . ')' . PHP_EOL .
                 'Values given :: (' . implode(",", $bindings) . ')' . PHP_EOL .
+                'Final Bindings Keys :: (' . implode(",", array_keys($finalBindings)) . ')' . PHP_EOL .
                 'Final Bindings given :: (' . implode(",", $finalBindings) . ')' . PHP_EOL .
                 'Database Message :: ' . $updateException->getMessage();
             $category = "UPDATE_QUERIES";
@@ -451,7 +454,6 @@ abstract class DB_Table extends dbModel\DB_Model implements CRUD\tableQuery
 //                return $result[0];
 
             return $result;
-
         } catch (\PDOException $selectException) {
             $errorString = 'Select Failure :: ' . $selectQuery . PHP_EOL .
                 'Named parameters :: (' . $namedParam . ')' . PHP_EOL .
