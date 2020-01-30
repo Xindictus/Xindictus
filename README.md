@@ -14,10 +14,7 @@ Features:
 * ClassCreator (creating database object classes)
 * Database Abstraction Layer and Database Handlers
 * Error Logger
-* Session management (under construction)
-* Validation (will be implemented soon)
+* Session management
+* Data Validation
 * Basic Control Panel
-* MVC (will be implemented soon)
-
-> Documentation not yet available
-
+* MVC

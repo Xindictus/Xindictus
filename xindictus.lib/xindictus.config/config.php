@@ -50,7 +50,7 @@ return [
      */
     'Platform' => [
         'year' => 2019,
-        'panorama_id' => 82
+        // 'panorama_id' => 82
     ],
 
     /*
@@ -81,14 +81,11 @@ return [
         'host' => 'localhost',
         'port' => '3306',
         'username' => 'root',
-//        'username' => 'xindictus',
         'password' => 'abc123',
-//        'password' => '9<Xhe4?;BY7vwpUj',
         'database' => [
             /*
              * Databases (values) are represented with an alias (key).
              */
-            'BusinessDays' => 'business_days_db'
         ],
         'charset' => 'utf8',
 //        'collation' => 'utf8_unicode_ci',
@@ -130,9 +127,9 @@ return [
         'Debugoutput' => 'html',
         'SMTPAuth' => true,
         'Host' => gethostbyname('tls://smtp.gmail.com:587'),
-        'Username' => 'businessdays@pan-orama.org',
-        'Password' => '1panoramaadmin',
-        'FromName' => 'Πανόραμα ~ Business Days',
+        'Username' => '',
+        'Password' => '',
+        'FromName' => '',
         'Encoding' => 'UTF-8'
     ]
 
