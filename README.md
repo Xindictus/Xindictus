@@ -6,7 +6,6 @@ Main purpose of creation was:
 * to ease debugging
 * to implement OOP structure
 * to log all database errors
-* to implement MVC design in my projects (not yet implemented)
 
 Features:
 * Configuration file
